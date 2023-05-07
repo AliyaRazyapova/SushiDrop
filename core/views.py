@@ -1,15 +1,9 @@
 import hashlib
-
-from django.contrib.auth.hashers import make_password
-from django.utils.crypto import constant_time_compare
-from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import login, get_user_model
 from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.hashers import check_password
 
 
