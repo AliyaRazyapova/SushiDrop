@@ -1,15 +1,11 @@
 <template>
-  <RegistrationForm />
+  <router-view />
 </template>
 
 <script>
-import RegistrationForm from "@/components/RegistrationForm";
 
 export default {
-  name: 'App',
-  components: {
-    RegistrationForm
-  }
+  name: 'App'
 }
 </script>
 
