@@ -29,7 +29,11 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await axios.post('http://localhost:8000/api/core/login/', { email: this.email, password: this.password })
+        const response = await axios.post(
+            'http://localhost:8000/api/core/login/', {
+              email: this.email,
+              password: this.password
+            })
         if (response.status === 200) {
           this.message = 'Вы успешно авторизовались!'
           localStorage.setItem('token', response.data.token)
