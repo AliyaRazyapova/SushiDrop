@@ -9,23 +9,24 @@
       <input type="password" id="password" v-model="password" required>
     </div>
     <div>
-      <label for="firstName">First name:</label>
+      <label for="firstName">First Name:</label>
       <input type="text" id="firstName" v-model="firstName" required>
     </div>
     <div>
-      <label for="lastName">Last name:</label>
+      <label for="lastName">Last Name:</label>
       <input type="text" id="lastName" v-model="lastName" required>
     </div>
     <div>
-      <label for="phoneNumber">Phone number:</label>
-      <input type="text" id="phoneNumber" v-model="phoneNumber" required>
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" id="phoneNumber" v-model="phoneNumber">
     </div>
     <div>
       <label for="address">Address:</label>
-      <input type="text" id="address" v-model="address" required>
+      <input type="text" id="address" v-model="address">
     </div>
-    <div v-if="error">{{ error }}</div>
-    <button type="submit">Register</button>
+    <div>
+      <button type="submit">Register</button>
+    </div>
   </form>
 </template>
 
@@ -33,7 +34,6 @@
 import axios from 'axios';
 
 export default {
-  name: 'RegistrationForm',
   data() {
     return {
       email: '',
@@ -41,27 +41,25 @@ export default {
       firstName: '',
       lastName: '',
       phoneNumber: '',
-      address: '',
-      error: '',
-    };
+      address: ''
+    }
   },
   methods: {
     async registerUser() {
       try {
-        const response = await axios.post('/api/core/register/', {
+        const response = await axios.post('http://localhost:8000/api/core/register/', {
           email: this.email,
           password: this.password,
           first_name: this.firstName,
           last_name: this.lastName,
           phone_number: this.phoneNumber,
-          address: this.address,
+          address: this.address
         });
         console.log(response.data);
       } catch (error) {
-        console.error(error);
-        this.error = 'Error registering user';
+        console.log(error);
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
