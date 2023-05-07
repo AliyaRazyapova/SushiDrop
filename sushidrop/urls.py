@@ -20,5 +20,5 @@ from core.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/core/', include('core.urls')),
+    path('api/core/', include('core.urls'))
 ]
