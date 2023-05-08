@@ -22,7 +22,19 @@
       <input type="password" id="password" v-model="password" required>
     </div>
     <div>
-      <button type="submit">Register</button>
+      <label for="password_repeat">
+        Пароль (ещё раз)
+      </label>
+      <input type="password" id="password_repeat" v-model="password_repeat" required>
+      <div v-if="passwordsMatch" class="passwords-match">
+        Пароли совпадают
+      </div>
+      <div v-else class="passwords-mismatch">
+        Пароли не совпадают
+      </div>
+    </div>
+    <div>
+      <button type="submit" :disabled="!passwordsMatch">Register</button>
     </div>
   </form>
 </template>
@@ -35,7 +47,13 @@ export default {
     return {
       first_name: '',
       email: '',
-      password: ''
+      password: '',
+      password_repeat: ''
+    }
+  },
+  computed: {
+    passwordsMatch() {
+      return this.password === this.password_repeat;
     }
   },
   methods: {
