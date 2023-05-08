@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic.base import TemplateView
+from django.contrib.auth.decorators import login_required
+from core import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/core/', include('core.urls'))
+    path('api/core/', include('core.urls')),
+    path('auth/', include('social_django.urls', namespace='social')),
+    path('auth/', include('django.contrib.auth.urls')),
+    path('profile/', login_required(TemplateView.as_view(template_name='profile.html')), name='profile'),
+    path('auth/vk/callback/', views.vk_oauth2_callback, name='vk_oauth2_callback'),
 ]
