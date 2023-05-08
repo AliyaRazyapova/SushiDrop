@@ -26,11 +26,11 @@
         Пароль (ещё раз)
       </label>
       <input type="password" id="password_repeat" v-model="password_repeat" required>
-      <div v-if="passwordsMatch" class="passwords-match">
-        Пароли совпадают
+      <div v-if="!passwordsMatch" class="passwords_mismatch">
+        &#10060;
       </div>
-      <div v-else class="passwords-mismatch">
-        Пароли не совпадают
+      <div v-else class="passwords_match">
+        &#10003;
       </div>
     </div>
     <div>
@@ -72,3 +72,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.passwords_match {
+  color: green;
+}
+</style>
