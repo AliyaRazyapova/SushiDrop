@@ -5,7 +5,8 @@
 <script>
 
 export default {
-  name: 'App'
+  name: 'App',
+  style: require('@/assets/main.css')
 }
 </script>
 

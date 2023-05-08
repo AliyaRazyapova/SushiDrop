@@ -82,6 +82,15 @@ export default {
   align-items: center;
 }
 
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  color: #212121;
+}
+
 .name_inp {
   display: flex;
   flex-direction: row;
@@ -90,6 +99,11 @@ export default {
 
 .name {
   text-align: left;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  color: #000000;
 }
 
 .inp {
