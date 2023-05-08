@@ -1,42 +1,44 @@
 <template>
-  <div class="title">
-    Регистрация
+  <div class="register_form">
+    <div class="title">
+      Регистрация
+    </div>
+    <form @submit.prevent="registerUser">
+      <div class="name_inp">
+        <div class="name">
+          Имя
+        </div>
+        <input type="first_name" class="inp inp_1" v-model="first_name" required>
+      </div>
+      <div class="name_inp">
+        <div class="name">
+          Почта
+        </div>
+        <input type="email" class="inp inp_1" v-model="email" required>
+      </div>
+      <div class="name_inp">
+        <div class="name">
+          Пароль
+        </div>
+        <input type="password" class="inp inp_1" v-model="password" required>
+      </div>
+      <div class="name_inp">
+        <div class="name">
+          Пароль (ещё раз)
+        </div>
+        <input type="password" class="inp" v-model="password_repeat" required>
+        <div v-if="!passwordsMatch" class="smile passwords_mismatch">
+          &#10060;
+        </div>
+        <div v-else class="smile passwords_match">
+          &#10003;
+        </div>
+      </div>
+      <div>
+        <button type="submit" :disabled="!passwordsMatch">Register</button>
+      </div>
+    </form>
   </div>
-  <form @submit.prevent="registerUser">
-    <div>
-      <label for="first_name">
-        Имя
-      </label>
-      <input type="first_name" id="first_name" v-model="first_name" required>
-    </div>
-    <div>
-      <label for="email">
-        Почта
-      </label>
-      <input type="email" id="email" v-model="email" required>
-    </div>
-    <div>
-      <label for="password">
-        Пароль
-      </label>
-      <input type="password" id="password" v-model="password" required>
-    </div>
-    <div>
-      <label for="password_repeat">
-        Пароль (ещё раз)
-      </label>
-      <input type="password" id="password_repeat" v-model="password_repeat" required>
-      <div v-if="!passwordsMatch" class="passwords_mismatch">
-        &#10060;
-      </div>
-      <div v-else class="passwords_match">
-        &#10003;
-      </div>
-    </div>
-    <div>
-      <button type="submit" :disabled="!passwordsMatch">Register</button>
-    </div>
-  </form>
 </template>
 
 <script>
@@ -74,6 +76,34 @@ export default {
 </script>
 
 <style>
+.register_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name_inp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.name {
+  text-align: left;
+}
+
+.inp {
+  text-align: right;
+}
+
+.inp_1 {
+  margin-right: 20px;
+}
+
+.smile {
+  width: 20px;
+}
+
 .passwords_match {
   color: green;
 }
