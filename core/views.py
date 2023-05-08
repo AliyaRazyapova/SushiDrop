@@ -1,6 +1,10 @@
-import hashlib
+import hashlib, requests
+
+from django.shortcuts import redirect
 from rest_framework.response import Response
 from rest_framework import status
+
+from sushidrop import settings
 from .serializers import UserSerializer
 from django.contrib.auth import login, get_user_model
 from rest_framework.views import APIView
@@ -31,3 +35,28 @@ class LoginView(APIView):
         else:
             return Response({'message': 'Ошибка авторизации'}, status=status.HTTP_401_UNAUTHORIZED)
 
+
+def vk_oauth2_callback(request):
+    code = request.GET.get('code')
+
+    response = requests.post('https://oauth.vk.com/access_token', params={
+        'client_id': settings.SOCIAL_AUTH_VK_OAUTH2_KEY,
+        'client_secret': settings.SOCIAL_AUTH_VK_OAUTH2_SECRET,
+        'redirect_uri': settings.SOCIAL_AUTH_VK_OAUTH2_REDIRECT_URI,
+        'code': code
+    })
+
+    access_token = response.json().get('access_token')
+    user_response = requests.get('https://api.vk.com/method/users.get', params={
+        'access_token': access_token,
+        'fields': 'email',
+        'v': '5.130',
+    })
+
+    user_data = user_response.json().get('response')[0]
+    request.session['user_data'] = user_data
+
+    return redirect('http://localhost:8080/')
+
+    # Вернуть данные о пользователе в формате JSON
+    # print(user_response.json())
