@@ -117,6 +117,8 @@ export default {
 .inp {
   width: 216px;
   height: 24px;
+  border: 1.3px solid #939393;
+  border-radius: 3px;
 
   margin-left: 30px;
 }
