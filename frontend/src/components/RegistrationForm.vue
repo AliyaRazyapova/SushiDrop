@@ -106,10 +106,13 @@ export default {
   font-weight: 400;
   font-size: 15px;
   color: #000000;
+
+  padding: 4px;
 }
 
 .inp {
-  /*text-align: right;*/
+  width: 216px;
+  height: 24px;
 }
 
 .inp::placeholder {
@@ -124,11 +127,11 @@ export default {
 }
 
 .inp_1 {
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 .smile {
-  width: 20px;
+  width: 30px;
 }
 
 .passwords_match {
