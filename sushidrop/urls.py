@@ -25,6 +25,5 @@ urlpatterns = [
     path('api/core/', include('core.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
     path('auth/', include('django.contrib.auth.urls')),
-    path('profile/', login_required(TemplateView.as_view(template_name='profile.html')), name='profile'),
     path('auth/vk/callback/', views.vk_oauth2_callback, name='vk_oauth2_callback'),
 ]
