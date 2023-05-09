@@ -1,4 +1,5 @@
-import hashlib, requests
+import hashlib, requests, jwt
+from datetime import datetime, timedelta
 
 from django.shortcuts import redirect
 from rest_framework.response import Response
@@ -31,7 +32,12 @@ class LoginView(APIView):
             user = None
         if user and check_password(hashlib.md5(password.encode()).hexdigest(), user.password):
             login(request, user)
-            return Response({'message': 'Авторизация прошла успешно'}, status=status.HTTP_200_OK)
+            payload = {
+                'user_id': user.id,
+                'exp': datetime.utcnow() + timedelta(days=2)
+            }
+            token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+            return Response({'token': token}, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'Ошибка авторизации'}, status=status.HTTP_401_UNAUTHORIZED)
 
