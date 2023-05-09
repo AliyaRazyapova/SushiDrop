@@ -35,7 +35,9 @@
         </div>
       </div>
       <div>
-        <button type="submit" :disabled="!passwordsMatch">Register</button>
+        <button class="button" type="submit" :disabled="!passwordsMatch">
+          Зарегистрироваться
+        </button>
       </div>
     </form>
   </div>
@@ -120,5 +122,21 @@ export default {
 
 .passwords_match {
   color: green;
+}
+
+.button {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+
+  color: #FAFAFA;
+  background: #E30538;
+  border-radius: 4px;
+  border: 1px solid #FAFAFA;
+
+  width: 131px;
+  height: 27px;
 }
 </style>
