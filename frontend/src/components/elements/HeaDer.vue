@@ -1,15 +1,15 @@
 <template>
-  <lo-go />
+  <logo-title />
   <header-buttons />
 </template>
 
 <script>
 import HeaderButtons from "@/components/elements/HeaderButtons";
-import LoGo from "@/components/elements/LoGo";
+import LogoTitle from "@/components/elements/LogoTitle";
 
 export default {
 name: "HeaDer",
-  components: {LoGo, HeaderButtons}
+  components: {LogoTitle, HeaderButtons}
 }
 </script>
 
