@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import RegistrationForm from "@/components/RegistrationForm";
-import LoginForm from "@/components/LoginForm";
+import RegistrationForm from "@/components/forms/RegistrationForm";
+import LoginForm from "@/components/forms/LoginForm";
 
 const routes = [
   {
