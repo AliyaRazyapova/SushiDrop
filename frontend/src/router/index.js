@@ -4,6 +4,11 @@ import LoginForm from "@/components/LoginForm";
 
 const routes = [
   {
+    path: '/',
+    name: 'main',
+    component: LoginForm
+  },
+  {
     path: '/register',
     name: 'register',
     component: RegistrationForm

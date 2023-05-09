@@ -69,6 +69,7 @@ export default {
           password: this.password
         });
         console.log(response.data);
+        this.$router.push('/');
       } catch (error) {
         console.log(error);
       }
@@ -121,6 +122,7 @@ export default {
   border-radius: 3px;
 
   margin-left: 30px;
+  padding-left: 10px;
 }
 
 .inp::placeholder {
