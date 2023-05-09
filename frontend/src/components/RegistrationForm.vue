@@ -1,6 +1,6 @@
 <template>
   <div class="register_form">
-    <div class="title">
+    <div class="title inp_1">
       Регистрация
     </div>
     <form @submit.prevent="registerUser">
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div>
-        <button class="button" type="submit" :disabled="!passwordsMatch">
+        <button class="button inp_1" type="submit" :disabled="!passwordsMatch">
           Зарегистрироваться
         </button>
       </div>
@@ -91,12 +91,16 @@ export default {
   font-size: 24px;
   line-height: 36px;
   color: #212121;
+
+  margin-bottom: 54px;
 }
 
 .name_inp {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  margin-bottom: 18px;
 }
 
 .name {
@@ -113,6 +117,8 @@ export default {
 .inp {
   width: 216px;
   height: 24px;
+
+  margin-left: 30px;
 }
 
 .inp::placeholder {
@@ -131,6 +137,7 @@ export default {
 }
 
 .smile {
+  padding-top: 4px;
   width: 30px;
 }
 
@@ -152,5 +159,7 @@ export default {
 
   width: 131px;
   height: 27px;
+
+  margin-top: 8px;
 }
 </style>
