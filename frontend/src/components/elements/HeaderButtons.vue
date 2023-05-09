@@ -4,7 +4,7 @@
     <button v-else @click="goToLogin">Войти</button>
     <button class="button_1" @click="goToCart">Корзина</button>
   </div>
-  <button v-if="isLoggedIn" @click="logout">Выйти</button>
+<!--  <button v-if="isLoggedIn" @click="logout">Выйти</button>-->
 </template>
 
 <script>
@@ -25,11 +25,11 @@ export default {
     goToLogin() {
       this.$router.push('/login');
     },
-    logout() {
-      localStorage.removeItem('token');
-      this.$router.push('/');
-      location.reload();
-    }
+    // logout() {
+    //   localStorage.removeItem('token');
+    //   this.$router.push('/');
+    //   location.reload();
+    // }
   }
 }
 </script>
