@@ -8,25 +8,25 @@
         <div class="name">
           Имя
         </div>
-        <input type="first_name" class="inp inp_1" v-model="first_name" required>
+        <input type="text" class="inp inp_1" placeholder="Введите своё имя" v-model="first_name" required>
       </div>
       <div class="name_inp">
         <div class="name">
           Почта
         </div>
-        <input type="email" class="inp inp_1" v-model="email" required>
+        <input type="email" class="inp inp_1" placeholder="Введите свою почту" v-model="email" required>
       </div>
       <div class="name_inp">
         <div class="name">
           Пароль
         </div>
-        <input type="password" class="inp inp_1" v-model="password" required>
+        <input type="password" class="inp inp_1" placeholder="Введите пароль" v-model="password" required>
       </div>
       <div class="name_inp">
         <div class="name">
           Пароль (ещё раз)
         </div>
-        <input type="password" class="inp" v-model="password_repeat" required>
+        <input type="password" class="inp" placeholder="Введите пароль повторно" v-model="password_repeat" required>
         <div v-if="!passwordsMatch" class="smile passwords_mismatch">
           &#10060;
         </div>
@@ -109,7 +109,18 @@ export default {
 }
 
 .inp {
-  text-align: right;
+  /*text-align: right;*/
+}
+
+.inp::placeholder {
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  color: #A6A6A6;
+
+  padding-left: 3px;
 }
 
 .inp_1 {
