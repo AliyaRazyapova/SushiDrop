@@ -44,6 +44,6 @@ export default {
   color: #2F2F2F;
 
   text-align: center;
-  padding: 10px 134px;
+  padding: 10px 174px;
 }
 </style>

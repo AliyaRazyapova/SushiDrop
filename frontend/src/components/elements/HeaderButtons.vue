@@ -2,9 +2,9 @@
   <div class="buttons">
     <button v-if="isLoggedIn" @click="goToProfile">Профиль</button>
     <button v-else @click="goToLogin">Войти</button>
-    <button @click="goToCart">Корзина</button>
+    <button class="button_1" @click="goToCart">Корзина</button>
   </div>
-  <button v-if="isLoggedIn" @click="logout">Выйти</button>
+<!--  <button v-if="isLoggedIn" @click="logout">Выйти</button>-->
 </template>
 
 <script>
@@ -38,14 +38,17 @@ export default {
 .buttons {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
+
+  height: 24px;
+  width: 230px;
 }
 
 button {
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: 16px;
   color: #F52341;
   background-color: transparent;
 
@@ -53,9 +56,16 @@ button {
   align-items: center;
   text-align: center;
 
-  border: 1px solid #F52341;
+  border: 1.5px solid #F52341;
   border-radius: 5px;
 
-  padding: 3px 10px;
+  padding: 0 14px;
+  height: 28px;
+  margin-top: 25px;
+  margin-left: 24px;
+}
+
+.button_1 {
+  margin-right: 10px;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
-  <logo-title />
-  <header-buttons />
+  <div class="header">
+    <logo-title />
+    <header-buttons />
+  </div>
 </template>
 
 <script>
@@ -14,5 +16,8 @@ name: "HeaDer",
 </script>
 
 <style scoped>
-
+.header {
+  display: flex;
+  flex-direction: row;
+}
 </style>
