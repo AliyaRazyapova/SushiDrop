@@ -4,7 +4,7 @@
     <button v-else @click="goToLogin">Войти</button>
     <button class="button_1" @click="goToCart">Корзина</button>
   </div>
-<!--  <button v-if="isLoggedIn" @click="logout">Выйти</button>-->
+  <button v-if="isLoggedIn" @click="logout">Выйти</button>
 </template>
 
 <script>
@@ -61,7 +61,7 @@ button {
 
   padding: 0 14px;
   height: 28px;
-  margin-top: 25px;
+  margin-top: 20px;
   margin-left: 24px;
 }
 
