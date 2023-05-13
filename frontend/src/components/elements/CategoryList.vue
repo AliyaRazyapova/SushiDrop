@@ -70,7 +70,7 @@ export default {
   }
 
   li {
-    margin: 0 1rem;
+    margin: 0 10px;
   }
 
   li a {
