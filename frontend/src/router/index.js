@@ -5,6 +5,7 @@ import UserProfile from "@/components/forms/UserProfile";
 import MainPage from "@/components/pages/MainPage";
 import NaboryPage from "@/components/pages/NaboryPage";
 import PremiumPage from "@/components/pages/PremiumPage";
+import RollyISushiPage from "@/components/pages/RollyISushiPage";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/premium',
     name: 'premium',
     component: PremiumPage
+  },
+  {
+    path: '/rolly-i-sushi',
+    name: 'rolly-i-sushi',
+    component: RollyISushiPage
   }
 ]
 
