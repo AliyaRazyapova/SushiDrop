@@ -3,7 +3,7 @@
   <category-list></category-list>
   <div class="main">
     <div class="title">
-      Запечённые
+      Соусы
     </div>
   </div>
 </template>
