@@ -11,6 +11,7 @@ import ZapechyonnyePage from "@/components/pages/ZapechyonnyePage";
 import GoryacheeISalatyPage from "@/components/pages/GoryacheeISalatyPage";
 import SousyPage from "@/components/pages/SousyPage";
 import NapitkiIDesertyPage from "@/components/pages/NapitkiIDesertyPage";
+import SpetsiiPage from "@/components/pages/SpetsiiPage";
 
 const routes = [
   {
@@ -72,6 +73,11 @@ const routes = [
     path: '/napitki-i-deserty',
     name: 'napitki-i-deserty',
     component: NapitkiIDesertyPage
+  },
+  {
+    path: '/spetsii',
+    name: 'spetsii',
+    component: SpetsiiPage
   }
 ]
 
