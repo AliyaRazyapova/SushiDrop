@@ -9,6 +9,7 @@ import RollyISushiPage from "@/components/pages/RollyISushiPage";
 import TempuraPage from "@/components/pages/TempuraPage";
 import ZapechyonnyePage from "@/components/pages/ZapechyonnyePage";
 import GoryacheeISalatyPage from "@/components/pages/GoryacheeISalatyPage";
+import SousyPage from "@/components/pages/SousyPage";
 
 const routes = [
   {
@@ -60,6 +61,11 @@ const routes = [
     path: '/goryachee-i-salaty',
     name: 'goryachee-i-salaty',
     component: GoryacheeISalatyPage
+  },
+  {
+    path: '/sousy',
+    name: 'sousy',
+    component: SousyPage
   }
 ]
 
