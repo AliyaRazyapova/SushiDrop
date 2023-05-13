@@ -7,6 +7,7 @@ import NaboryPage from "@/components/pages/NaboryPage";
 import PremiumPage from "@/components/pages/PremiumPage";
 import RollyISushiPage from "@/components/pages/RollyISushiPage";
 import TempuraPage from "@/components/pages/TempuraPage";
+import ZapechyonnyePage from "@/components/pages/ZapechyonnyePage";
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: '/tempura',
     name: 'tempura',
     component: TempuraPage
+  },
+  {
+    path: '/zapechyonnye',
+    name: 'zapechyonnye',
+    component: ZapechyonnyePage
   }
 ]
 
