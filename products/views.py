@@ -21,8 +21,6 @@ def create_product(request):
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method!'})
 
-from django.http import JsonResponse
-from .models import CategoryProduct
 
 def list_categories(request):
     categories = CategoryProduct.objects.all()
