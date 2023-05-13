@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  name: 'CategoryList',
   data() {
     return {
       activeTab: 0,
