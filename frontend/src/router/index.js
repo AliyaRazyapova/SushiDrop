@@ -6,6 +6,7 @@ import MainPage from "@/components/pages/MainPage";
 import NaboryPage from "@/components/pages/NaboryPage";
 import PremiumPage from "@/components/pages/PremiumPage";
 import RollyISushiPage from "@/components/pages/RollyISushiPage";
+import TempuraPage from "@/components/pages/TempuraPage";
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/rolly-i-sushi',
     name: 'rolly-i-sushi',
     component: RollyISushiPage
+  },
+  {
+    path: '/tempura',
+    name: 'tempura',
+    component: TempuraPage
   }
 ]
 
