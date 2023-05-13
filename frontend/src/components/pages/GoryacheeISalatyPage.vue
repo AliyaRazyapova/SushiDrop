@@ -1,9 +1,9 @@
 <template>
   <hea-der></hea-der>
   <category-list></category-list>
-  <div className="main">
-    <div className="title">
-      Запечённые
+  <div class="main">
+    <div class="title">
+      Горячее и салаты
     </div>
   </div>
 </template>
