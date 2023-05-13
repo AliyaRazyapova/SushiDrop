@@ -57,28 +57,44 @@ export default {
 </script>
 
 <style>
-nav {
-  display: flex;
-  justify-content: center;
-}
+  nav {
+    display: flex;
+    justify-content: center;
+  }
 
-ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-li {
-  margin: 0 1rem;
-}
+  li {
+    margin: 0 1rem;
+  }
 
-li a {
-  color: #333;
-  text-decoration: none;
-}
+  li a {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    color: #464646;
+    text-decoration: none;
+    position: relative;
+  }
 
-li.active a {
-  font-weight: bold;
-}
+  li.active a:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background-color: #F52341;
+  }
+
+  li.active a {
+    font-weight: 700;
+    color: #F52341;
+  }
 </style>
