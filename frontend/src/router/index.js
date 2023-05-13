@@ -3,6 +3,7 @@ import RegistrationForm from "@/components/forms/RegistrationForm";
 import LoginForm from "@/components/forms/LoginForm";
 import UserProfile from "@/components/forms/UserProfile";
 import MainPage from "@/components/pages/MainPage";
+import NaboryPage from "@/components/pages/NaboryPage";
 import PremiumPage from "@/components/pages/PremiumPage";
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: UserProfile
+  },
+  {
+    path: '/nabory',
+    name: 'nabory',
+    component: NaboryPage
   },
   {
     path: '/premium',
