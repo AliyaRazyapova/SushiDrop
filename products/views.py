@@ -10,11 +10,12 @@ def create_product(request):
         category_id = request.POST.get('category_id')
         name = request.POST.get('name')
         description = request.POST.get('description')
+        gramms = request.POST.get('gramms')
         price = request.POST.get('price')
         image = request.FILES.get('image')
 
         category = CategoryProduct.objects.get(id=category_id)
-        product = Product(category=category, name=name, description=description, price=price, image=image)
+        product = Product(category=category, name=name, description=description, gramms=gramms, price=price, image=image)
         product.save()
 
         return JsonResponse({'success': True, 'message': 'Product created successfully!'})
