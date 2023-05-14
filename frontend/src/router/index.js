@@ -12,12 +12,19 @@ import GoryacheeISalatyPage from "@/components/pages/GoryacheeISalatyPage";
 import SousyPage from "@/components/pages/SousyPage";
 import NapitkiIDesertyPage from "@/components/pages/NapitkiIDesertyPage";
 import SpetsiiPage from "@/components/pages/SpetsiiPage";
+import ProDuct from "@/components/elements/ProDuct";
 
 const routes = [
   {
     path: '/',
     name: 'main',
     component: MainPage
+  },
+  {
+    path: '/products/:id',
+    name: 'product',
+    component: ProDuct,
+    props: true
   },
   {
     path: '/register',
