@@ -31,8 +31,8 @@ def list_categories(request):
 @csrf_exempt
 def product_list(request):
     products = Product.objects.all()
-    data = [{'id': p.id, 'name': p.name, 'description': p.description, 'price': p.price, 'image': p.image.url} for p in products]
-    return JsonResponse(data, safe=False)
+    data = [{'id': p.id, 'name': p.name, 'description': p.description, 'price': p.price, 'image': p.image.url, 'category': p.category.name} for p in products]
+    return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
 @csrf_exempt
