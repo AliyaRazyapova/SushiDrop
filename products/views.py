@@ -47,7 +47,8 @@ def product_detail(request, product_id):
             'gramms': product.gramms,
             'price': product.price,
             'image': product.image.url,
+            'category': product.category.name
         }
-        return JsonResponse(data)
+        return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
     except Product.DoesNotExist:
         return JsonResponse({'error': 'Product not found'}, status=404)
