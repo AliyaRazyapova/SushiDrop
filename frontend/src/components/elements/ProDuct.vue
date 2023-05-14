@@ -3,6 +3,7 @@
     <h2>{{ product.name }}</h2>
     <img :src="product.image" alt="product image">
     <p>{{ product.description }}</p>
+    <p>{{product.gramms}}</p>
     <p>{{ product.price }}</p>
   </div>
 </template>
