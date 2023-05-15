@@ -29,6 +29,11 @@
         <input @change="onImageChange" type="file">
       </label>
       <br>
+      <label>
+        Gramms
+        <input v-model="gramms" type="number">
+      </label>
+      <br>
       <button type="submit">Create Product</button>
     </form>
   </div>
@@ -43,6 +48,7 @@ export default {
       name: '',
       description: '',
       price: 0,
+      gramms: 0,
       image: null,
       categories: [],
     }
@@ -65,6 +71,7 @@ export default {
       formData.append('name', this.name)
       formData.append('description', this.description)
       formData.append('price', this.price)
+      formData.append('gramms', this.gramms)
       formData.append('image', this.image)
       const response = await fetch('http://localhost:8000/api/products/create/', {
         method: 'POST',
@@ -77,6 +84,7 @@ export default {
         this.name = ''
         this.description = ''
         this.price = 0
+        this.gramms = 0
         this.image = null
       } else {
       alert('Failed to create product: ' + data.message)
