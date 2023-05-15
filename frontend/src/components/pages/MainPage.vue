@@ -6,15 +6,17 @@
       SushiDrop
     </div>
   </div>
+  <product-list />
 </template>
 
 <script>
 import HeaDer from "@/components/elements/HeaDer";
 import CategoryList from "@/components/elements/CategoryList";
+import ProductList from "@/components/elements/ProductList";
 
 export default {
   name: "MainPage",
-  components: {CategoryList, HeaDer}
+  components: {ProductList, CategoryList, HeaDer}
 }
 </script>
 
