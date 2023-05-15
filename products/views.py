@@ -26,7 +26,7 @@ def create_product(request):
 def list_categories(request):
     categories = CategoryProduct.objects.all()
     data = [{'id': category.id, 'name': category.name} for category in categories]
-    return JsonResponse(data, safe=False)
+    return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
 
 
 @csrf_exempt
