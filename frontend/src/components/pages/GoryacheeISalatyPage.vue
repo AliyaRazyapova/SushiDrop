@@ -1,39 +1,27 @@
 <template>
-  <hea-der></hea-der>
-  <category-list></category-list>
+  <hea-der />
+  <category-list />
   <div class="main">
     <div class="title">
       Горячее и салаты
     </div>
   </div>
+  <div class="product-list">
+    <product-list-page URL="http://localhost:8000/api/products/goryachee-i-salaty/" />
+  </div>
 </template>
 
 <script>
+import ProductListPage from "@/components/elements/ProductList";
 import HeaDer from "@/components/elements/HeaDer";
 import CategoryList from "@/components/elements/CategoryList";
 
 export default {
-  name: "GoryacheeISalatyPage",
-  components: {CategoryList, HeaDer}
+  name: 'GoryacheeISalatyPage',
+  components: {
+    CategoryList,
+    HeaDer,
+    ProductListPage
+  }
 }
 </script>
-
-<style scoped>
-.main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80px;
-}
-
-.title {
-  font-family: 'Poppins', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 36px;
-  color: #212121;
-
-  margin: auto;
-}
-</style>
