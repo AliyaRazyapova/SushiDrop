@@ -2,7 +2,7 @@ from django.db import models
 
 
 class CategoryProduct(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
 
 class Product(models.Model):
