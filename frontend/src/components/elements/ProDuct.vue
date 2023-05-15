@@ -46,6 +46,8 @@ export default {
   .product {
     width: 250px;
     height: 270px;
+
+    margin: 15px;
   }
 
   img {

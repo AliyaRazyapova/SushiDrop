@@ -31,10 +31,15 @@ def list_categories(request):
 
 
 @csrf_exempt
-def product_list(request):
-    products = Product.objects.all()
-    data = [{'id': p.id, 'name': p.name, 'description': p.description, 'gramms': p.gramms,'price': p.price, 'image': p.image.url, 'category': p.category.name} for p in products]
-    return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
+def product_list(request, category_id=None):
+    if category_id is None:
+        products = Product.objects.all()
+        data = [{'id': p.id, 'name': p.name, 'description': p.description, 'gramms': p.gramms, 'price': p.price, 'image': p.image.url, 'category': p.category.name} for p in products]
+    else:
+        category = get_object_or_404(CategoryProduct, id=category_id)
+        products = Product.objects.filter(category=category)
+        data = [{'id': p.id, 'name': p.name, 'description': p.description, 'gramms': p.gramms, 'price': p.price, 'image': p.image.url} for p in products]
+    return JsonResponse(data, safe=False)
 
 
 @csrf_exempt
@@ -53,11 +58,3 @@ def product_detail(request, product_id):
         return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
     except Product.DoesNotExist:
         return JsonResponse({'error': 'Product not found'}, status=404)
-
-
-def nabory_list(request):
-    category = get_object_or_404(CategoryProduct, id=1)
-    print(category)
-    products = Product.objects.filter(category=category)
-    data = [{'id': p.id, 'name': p.name, 'description': p.description, 'gramms': p.gramms, 'price': p.price, 'image': p.image.url} for p in products]
-    return JsonResponse(data, safe=False)
