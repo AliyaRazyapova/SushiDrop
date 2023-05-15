@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import '@/assets/pages.css';
 import ProductListPage from "@/components/elements/ProductList";
 import HeaDer from "@/components/elements/HeaDer";
 import CategoryList from "@/components/elements/CategoryList";
