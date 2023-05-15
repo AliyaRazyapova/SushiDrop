@@ -14,6 +14,12 @@ export default {
   components: {
     ProDuct
   },
+  props: {
+    apiUrl: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       products: []
@@ -25,7 +31,7 @@ export default {
   methods: {
     async getProducts() {
       try {
-        const response = await fetch('http://localhost:8000/api/products/')
+        const response = await fetch(this.URL)
         const data = await response.json()
         this.products = data
       } catch (error) {
