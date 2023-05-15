@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="product-list">
-    <product-list-page URL="http://localhost:8000/api/products/rolly-i-sushi/" />
+    <product-list-page URL="http://localhost:8000/api/products/tempura/" />
   </div>
 </template>
 
