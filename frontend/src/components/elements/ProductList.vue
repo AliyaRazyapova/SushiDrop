@@ -15,7 +15,7 @@ export default {
     ProDuct
   },
   props: {
-    apiUrl: {
+    URL: {
       type: String,
       required: true
     }
@@ -41,3 +41,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .product-list {
+    flex-wrap: wrap;
+  }
+</style>
