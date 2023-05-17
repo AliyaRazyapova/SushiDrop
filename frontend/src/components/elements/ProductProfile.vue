@@ -7,20 +7,23 @@
   </div>
   <div :class="{'product': !isProfileUrl, 'product--profile': isProfileUrl}" @click="navigateToProfile">
     <img :src="product.image" alt="product image" :class="{'img': !isProfileUrl, 'img--profile': isProfileUrl}">
-    <div :class="{'name': !isProfileUrl, 'name--profile': isProfileUrl}">{{ product.name }}</div>
-    <div :class="{'gramms_price': !isProfileUrl, 'gramms_price--profile': isProfileUrl}">
-      <div :class="{'gramms': !isProfileUrl, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
-      <div :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}">
-        <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
+    <div :class="{'content': !isProfileUrl, 'content--profile': isProfileUrl}">
+      <div :class="{'name': !isProfileUrl, 'name--profile': isProfileUrl}">{{ product.name }}</div>
+      <div :class="{'gramms_price': !isProfileUrl, 'gramms_price--profile': isProfileUrl}">
+        <div :class="{'gramms': !isProfileUrl, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
+        <div :class="{'description': !isProfileUrl, 'description--profile': isProfileUrl}">{{product.description}}</div>
+        <div :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}">
+          <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
+        </div>
       </div>
     </div>
-    <div :class="{'description': !isProfileUrl, 'description--profile': isProfileUrl}">{{product.description}}</div>
   </div>
 </template>
 
 <script>
 import HeaDer from "@/components/elements/HeaDer";
 import CategoryList from "@/components/elements/CategoryList";
+
 export default {
   name: 'ProductProfile',
   components: {CategoryList, HeaDer},
@@ -126,6 +129,7 @@ export default {
     font-weight: 500;
     font-size: 13.6347px;
     line-height: 20px;
+
     color: #F52341;
   }
 
@@ -135,12 +139,68 @@ export default {
 
   .product--profile {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row;
+
+    width: 400px;
+    height: 340px;
+
+    margin: 15px;
   }
 
-  .gramms_price--profile {
+  .img--profile {
+    width: 100%;
+    height: 100%;
+  }
+
+  .name--profile {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+
+    color: #000000;
+  }
+
+  .gramms--profile {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: #7C909C;
+  }
+
+  .description--profile {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: #2F2F2F;
+  }
+
+  .price--profile {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15.0103px;
+    line-height: 23px;
+
+    margin: auto;
+
+    color: #FFFFFF;
+  }
+
+  .price_1--profile {
     display: flex;
-    flex-direction: column;
+
+    width: 182px;
+    height: 38px;
+
+    background: #E30538;
+    border-radius: 9.38144px;
   }
 </style>
