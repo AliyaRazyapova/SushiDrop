@@ -1,18 +1,18 @@
 <template>
   <div class="product-list">
     <div v-for="product in products" :key="product.id">
-      <pro-duct :product-id="product.id" />
+      <product-profile :productId="product.id" @goToProfile="goToProfile" />
     </div>
   </div>
 </template>
 
 <script>
-import ProDuct from "@/components/elements/ProDuct";
+import ProductProfile from "@/components/elements/ProductProfile";
 
 export default {
   name: 'ProductList',
   components: {
-    ProDuct
+    ProductProfile
   },
   props: {
     URL: {
@@ -26,17 +26,21 @@ export default {
     }
   },
   mounted() {
-    this.getProducts()
+    this.getProducts();
   },
   methods: {
     async getProducts() {
       try {
-        const response = await fetch(this.URL)
-        const data = await response.json()
-        this.products = data
+        const response = await fetch(this.URL);
+        const data = await response.json();
+        this.products = data;
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
+    },
+    goToProfile(productId) {
+      console.log(productId)
+      this.$router.push({ name: 'ProductProfile', params: { productId } });
     }
   }
 }
