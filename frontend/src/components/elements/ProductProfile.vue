@@ -1,13 +1,14 @@
 <template>
     <div :class="{'product': true, 'product--profile': isProfileUrl}" @click="navigateToProfile">
-    <img :src="product.image" alt="product image">
-    <div :class="{'name': true, 'name--profile': isProfileUrl}">{{ product.name }}</div>
-    <div :class="{'gramms_price': true, 'gramms_price--profile': isProfileUrl}">
-      <div :class="{'gramms': true, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
-      <div :class="{'price_1': true, 'price_1--profile': isProfileUrl}">
-        <div :class="{'price': true, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
+      <img :src="product.image" alt="product image">
+      <div :class="{'name': true, 'name--profile': isProfileUrl}">{{ product.name }}</div>
+      <div :class="{'gramms_price': true, 'gramms_price--profile': isProfileUrl}">
+        <div :class="{'gramms': true, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
+        <div :class="{'price_1': true, 'price_1--profile': isProfileUrl}">
+          <div :class="{'price': true, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
+        </div>
       </div>
-    </div>
+      <div :class="{'description': false, 'description': isProfileUrl}">{{product.description}}</div>
   </div>
 </template>
 
@@ -44,8 +45,7 @@ export default {
       }
     },
     checkUrl() {
-      const currentUrl = window.location.href;
-      this.isProfileUrl = currentUrl.includes(`/products/${this.productId}/`);
+      this.isProfileUrl = this.$route.name === 'ProductProfile' && this.$route.params.productId == this.productId;
     },
     navigateToProfile() {
       this.$emit('goToProfile', this.productId);
@@ -121,8 +121,7 @@ export default {
   }
 
   .product--profile {
-  display: flex;
-  width: 100%;
-    background: black;
-}
+    display: flex;
+    width: 100%;
+  }
 </style>
