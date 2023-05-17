@@ -12,7 +12,7 @@ import GoryacheeISalatyPage from "@/components/pages/GoryacheeISalatyPage";
 import SousyPage from "@/components/pages/SousyPage";
 import NapitkiIDesertyPage from "@/components/pages/NapitkiIDesertyPage";
 import SpetsiiPage from "@/components/pages/SpetsiiPage";
-import ProDuct from "@/components/elements/ProDuct";
+import ProductProfile from "@/components/elements/ProductProfile";
 
 const routes = [
   {
@@ -22,8 +22,8 @@ const routes = [
   },
   {
     path: '/products/:productId',
-    name: 'product',
-    component: ProDuct,
+    name: 'ProductProfile',
+    component: ProductProfile,
     props: true
   },
   {
