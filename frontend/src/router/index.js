@@ -13,6 +13,7 @@ import SousyPage from "@/components/pages/SousyPage";
 import NapitkiIDesertyPage from "@/components/pages/NapitkiIDesertyPage";
 import SpetsiiPage from "@/components/pages/SpetsiiPage";
 import ProductProfile from "@/components/elements/ProductProfile";
+import CartPage from "@/components/pages/CartPage";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     name: 'ProductProfile',
     component: ProductProfile,
     props: true
+  },
+  {
+    path: '/cart',
+    name: 'CartPage',
+    component: CartPage
   },
   {
     path: '/register',
