@@ -30,3 +30,15 @@ def add_to_cart(request):
 
     serializer = CartSerializer(cart_item)
     return JsonResponse(serializer.data)
+
+
+@login_required
+@csrf_exempt
+def remove_from_cart(request, cart_item_id):
+    user = request.user
+    try:
+        cart_item = Cart.objects.get(id=cart_item_id, user=user)
+        cart_item.delete()
+        return JsonResponse({'detail': 'Item removed from cart successfully'})
+    except Cart.DoesNotExist:
+        return JsonResponse({'detail': 'Item not found in cart'}, status=404)
