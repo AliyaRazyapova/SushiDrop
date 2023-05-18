@@ -1,6 +1,7 @@
 from django.urls import path
-from cart.views import get_cart_items
+from cart import views
 
 urlpatterns = [
-    path('get/', get_cart_items, name='get_cart_items')
+    path('get/', views.get_cart_items, name='get_cart_items'),
+    path('add/', views.add_to_cart, name='add_to_cart')
 ]
