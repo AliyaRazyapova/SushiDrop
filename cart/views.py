@@ -42,3 +42,11 @@ def remove_from_cart(request, cart_item_id):
         return JsonResponse({'detail': 'Item removed from cart successfully'})
     except Cart.DoesNotExist:
         return JsonResponse({'detail': 'Item not found in cart'}, status=404)
+
+
+@login_required
+@csrf_exempt
+def clear_cart(request):
+    user = request.user
+    Cart.objects.filter(user=user).delete()
+    return JsonResponse({'detail': 'Cart cleared successfully'})
