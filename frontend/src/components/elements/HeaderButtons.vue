@@ -1,18 +1,18 @@
 <template>
   <div class="buttons">
     <button v-if="isLoggedIn" @click="goToProfile">Профиль</button>
+    <button v-else @click="goToRegister">Регистрация</button>
+    <button v-if="isLoggedIn" class="button_1" @click="goToCart">Корзина</button>
     <button v-else @click="goToLogin">Войти</button>
-    <button class="button_1" @click="goToCart">Корзина</button>
   </div>
-<!--  <button v-if="isLoggedIn" @click="logout">Выйти</button>-->
+  <button v-if="isLoggedIn" @click="logout">Выйти</button>
 </template>
-
 <script>
 export default {
   name: 'HeaderButtons',
   computed: {
     isLoggedIn() {
-      return localStorage.getItem('token') !== null;
+      return localStorage.getItem('access_token') !== null;
     }
   },
   methods: {
@@ -25,11 +25,14 @@ export default {
     goToLogin() {
       this.$router.push('/login');
     },
-    // logout() {
-    //   localStorage.removeItem('token');
-    //   this.$router.push('/');
-    //   location.reload();
-    // }
+    logout() {
+      localStorage.removeItem('access_token');
+      this.$router.push('/');
+      location.reload();
+    },
+    goToRegister() {
+      this.$router.push('/register');
+    }
   }
 }
 </script>
