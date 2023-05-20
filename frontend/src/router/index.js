@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import RegistrationForm from "@/components/forms/RegistrationForm";
 import LoginForm from "@/components/forms/LoginForm";
-import UserProfile from "@/components/forms/UserProfile";
+import UserProfile from "@/components/elements/UserProfile";
 import MainPage from "@/components/pages/MainPage";
 import NaboryPage from "@/components/pages/NaboryPage";
 import PremiumPage from "@/components/pages/PremiumPage";
@@ -44,8 +44,11 @@ const routes = [
   },
   {
     path: '/profile',
-    name: 'profile',
-    component: UserProfile
+    name: 'UserProfile',
+    component: UserProfile,
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: '/nabory',
@@ -98,5 +101,29 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+//
+// function isLoggedIn() {
+//   const token = localStorage.getItem('access_token');
+//   if (token) {
+//     try {
+//       // Проверяем и декодируем JWT-токен
+//       jwt.verify(token, 'django-insecure-tzndyj^x7-h!hkz*c+%i7*cez3y(0wrlx(dd7e^%=102%h0af0');
+//       return true;
+//     } catch (error) {
+//       console.log('FUCK')
+//       return false;
+//     }
+//   }
+//   return false;
+// }
+//
+//
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requiresAuth && !isLoggedIn()) {
+//     next('/login');
+//   } else {
+//     next();
+//   }
+// });
 
 export default router
