@@ -15,34 +15,56 @@
     <p v-if="message">{{ message }}</p>
   </div>
 </template>
+
 <script>
 import axios from "axios";
 
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      message: '',
-    }
+      email: "",
+      password: "",
+      message: "",
+    };
   },
   methods: {
     async login() {
+      if (!this.email || !this.password) {
+        this.message = "Заполните все поля";
+        return;
+      }
+
+      const loginData = {
+        email: this.email,
+        password: this.password,
+      };
+
       try {
-        const response = await axios.post(
-            'http://localhost:8000/api/core/login/', {
-              email: this.email,
-              password: this.password
-            })
+        const response = await axios.post("http://localhost:8000/api/core/login/", loginData);
+
         if (response.status === 200) {
-          this.message = 'Вы успешно авторизовались!'
-          localStorage.setItem('token', response.data.token)
-          this.$router.push('/')
+          const token = response.data.token; // Получение токена из ответа
+          this.message = "Вы успешно авторизовались!";
+          localStorage.setItem("access_token", token);
+          this.$router.push("/profile/");
         }
       } catch (error) {
-        this.message = 'Ошибка авторизации: ' + error.response.data.message
+        if (error.response && error.response.data && error.response.data.error) {
+          this.message = "Ошибка авторизации: " + error.response.data.error;
+        } else {
+          this.message = "Ошибка авторизации";
+        }
       }
     },
-  }
-}
+  },
+  created() {
+    axios.interceptors.request.use((config) => {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+  },
+};
 </script>
