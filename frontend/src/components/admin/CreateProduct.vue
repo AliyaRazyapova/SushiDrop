@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="createProduct">
       <label>
-        Category:
+        Категория:
         <select v-model="category">
           <option value="">Выберите категорию</option>
           <option v-for="category in categories" :value="category.id" :key="category.id">{{ category.name }}</option>
@@ -10,31 +10,31 @@
       </label>
       <br>
       <label>
-        Name:
+        Название:
         <input v-model="name" type="text">
       </label>
       <br>
       <label>
-        Description:
+        Описание:
         <textarea v-model="description"></textarea>
       </label>
       <br>
       <label>
-        Price:
+        Цена:
         <input v-model="price" type="number" step="0.01">
       </label>
       <br>
       <label>
-        Image:
+        Изображение:
         <input @change="onImageChange" type="file">
       </label>
       <br>
       <label>
-        Gramms
+        Граммы:
         <input v-model="gramms" type="number">
       </label>
       <br>
-      <button type="submit">Create Product</button>
+      <button type="submit">Создать продукт</button>
     </form>
   </div>
 </template>
@@ -58,36 +58,41 @@ export default {
   },
   methods: {
     async loadCategories() {
-      const response = await fetch('http://localhost:8000/api/categories/')
-      const data = await response.json()
-      this.categories = data
+      try {
+        const response = await fetch('http://localhost:8000/api/categories/')
+        const data = await response.json()
+        this.categories = data
+      } catch (error) {
+        console.log('Failed to load categories:', error)
+      }
     },
     onImageChange(event) {
       this.image = event.target.files[0]
     },
     async createProduct() {
-      const formData = new FormData()
-      formData.append('category_id', this.category)
-      formData.append('name', this.name)
-      formData.append('description', this.description)
-      formData.append('price', this.price)
-      formData.append('gramms', this.gramms)
-      formData.append('image', this.image)
-      const response = await fetch('http://localhost:8000/api/products/create/', {
-        method: 'POST',
-        body: formData,
-      })
-      const data = await response.json()
-      if (data.success) {
-        alert('Product created successfully!')
-        this.category = ''
-        this.name = ''
-        this.description = ''
-        this.price = 0
-        this.gramms = 0
-        this.image = null
-      } else {
-      alert('Failed to create product: ' + data.message)
+      try {
+        const formData = new FormData()
+        formData.append('category_id', this.category)
+        formData.append('name', this.name)
+        formData.append('description', this.description)
+        formData.append('price', this.price)
+        formData.append('gramms', this.gramms)
+        formData.append('image', this.image)
+
+        const response = await fetch('http://localhost:8000/api/products/create/', {
+          method: 'POST',
+          body: formData,
+        })
+
+        const data = await response.json()
+        if (data.success) {
+          alert('Продукт успешно создан!')
+          this.$router.push('/')
+        } else {
+          alert('Не удалось создать продукт: ' + data.message)
+        }
+      } catch (error) {
+        console.log('Failed to create product:', error)
       }
     },
   },
