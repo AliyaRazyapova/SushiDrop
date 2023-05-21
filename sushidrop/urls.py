@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/core/', include('core.urls')),
     path('api/products/', include('products.urls')),
     path('api/cart/', include('cart.urls')),
+    path('api/orders/', include('orders.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
     path('auth/', include('django.contrib.auth.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
