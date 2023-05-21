@@ -12,8 +12,13 @@
       <div :class="{'gramms_price': !isProfileUrl, 'gramms_price--profile': isProfileUrl}">
         <div :class="{'gramms': !isProfileUrl, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
         <div :class="{'description': !isProfileUrl, 'description--profile': isProfileUrl}">{{product.description}}</div>
-        <div :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}">
+        <div :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
           <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
+        </div>
+        <div :class="{'counter': !isProfileUrl, 'counter--profile': isProfileUrl}">
+          <button class="minus" @click="decrementQuantity">-</button>
+          <div class="quantity">{{ product.quantity }}</div>
+          <button class="plus" @click="incrementQuantity">+</button>
         </div>
       </div>
     </div>
@@ -23,6 +28,7 @@
 <script>
 import HeaDer from "@/components/elements/HeaDer";
 import CategoryList from "@/components/elements/CategoryList";
+import axios from "axios";
 
 export default {
   name: 'ProductProfile',
@@ -52,6 +58,7 @@ export default {
         }
         const data = await response.json();
         this.product = data;
+        this.product.quantity = 1;
       } catch (error) {
         console.error(error);
       }
@@ -61,6 +68,40 @@ export default {
     },
     navigateToProfile() {
       this.$emit('goToProfile', this.productId);
+    },
+    incrementQuantity() {
+      this.product.quantity++;
+    },
+    decrementQuantity() {
+      if (this.product.quantity > 0) {
+        this.product.quantity--;
+      }
+    },
+    addToCart() {
+      if (this.product.quantity > 0) {
+        const cartItem = {
+          product: this.product.id,
+          quantity: this.product.quantity
+        };
+        const token = localStorage.getItem('access_token')
+
+        axios.post('http://localhost:8000/api/cart/add/', cartItem, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+          .then(response => {
+            if (response.data.success) {
+              alert('Product added to cart successfully!');
+              this.product.quantity = 0;
+            } else {
+              alert('Failed to add product to cart: ' + response.data.message);
+            }
+          })
+          .catch(error => {
+            console.error('Failed to add product to cart', error);
+          });
+      }
     }
   }
 }
@@ -133,7 +174,7 @@ export default {
     color: #F52341;
   }
 
-  .description, .header, .list {
+  .description, .header, .list, .counter {
     display: none;
   }
 
