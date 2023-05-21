@@ -15,6 +15,7 @@ import SpetsiiPage from "@/components/pages/SpetsiiPage";
 import ProductProfile from "@/components/elements/ProductProfile";
 import CartPage from "@/components/pages/CartPage";
 import EditProfile from "@/components/elements/EditProfile";
+import CreateProduct from "@/components/admin/CreateProduct";
 
 const routes = [
   {
@@ -26,6 +27,12 @@ const routes = [
     path: '/products/:productId',
     name: 'ProductProfile',
     component: ProductProfile,
+    props: true
+  },
+  {
+    path: '/products/create',
+    name: 'CreateProduct',
+    component: CreateProduct,
     props: true
   },
   {
