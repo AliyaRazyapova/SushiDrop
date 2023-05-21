@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'social_django',
     'core',
+    'cart',
     'products',
-    'cart'
 ]
 
 MIDDLEWARE = [
@@ -160,6 +160,7 @@ SOCIAL_AUTH_VK_OAUTH2_REDIRECT_URI = 'http://localhost:8000/auth/vk/callback'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'core.auth.CustomJWTAuthentication'
     ],
     'DEFAULT_RENDERER_CLASSES': [
@@ -199,3 +200,5 @@ PASSWORD_HASHERS = [
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080'
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
