@@ -4,6 +4,10 @@
     <div v-if="loading">Loading...</div>
     <div v-else>
       <p>Email: {{ user.email }}</p>
+      <p>Имя: {{ user.first_name }}</p>
+      <p>Фамилия: {{ user.last_name }}</p>
+      <p>Номер телефона: {{ user.phone_number }}</p>
+      <p>Адрес: {{ user.address }}</p>
     </div>
   </div>
 </template>
