@@ -80,9 +80,19 @@ class UserProfileView(APIView):
             'first_name': user.first_name,
             'last_name': user.last_name,
             'phone_number': user.phone_number,
-            'address': user.phone_number
+            'address': user.address
         }
         return Response(data)
+
+    def put(self, request):
+        user = request.user
+        data = request.data
+        user.first_name = data.get('first_name', user.first_name)
+        user.last_name = data.get('last_name', user.last_name)
+        user.phone_number = data.get('phone_number', user.phone_number)
+        user.address = data.get('address', user.address)
+        user.save()
+        return Response({'message': 'Profile updated successfully'})
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
