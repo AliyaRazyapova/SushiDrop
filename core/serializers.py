@@ -13,7 +13,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = hashlib.sha256(validated_data['password'].encode()).hexdigest()
-        user = User.objects.create(email=validated_data['email'], first_name=validated_data['first_name'],password=password)
+        user = User.objects.create(
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            password=password)
         return user
 
     class Meta:
