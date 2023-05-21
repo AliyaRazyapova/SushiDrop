@@ -3,8 +3,7 @@ from .models import Cart
 
 
 class CartSerializer(serializers.ModelSerializer):
-    product_name = serializers.ReadOnlyField(source='product.name')
-
     class Meta:
         model = Cart
-        fields = ('id', 'user', 'product', 'product_name', 'discount', 'quantity')
+        fields = ['id', 'user', 'product', 'quantity']
+        read_only_fields = ['id']
