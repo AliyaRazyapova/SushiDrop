@@ -11,16 +11,30 @@
         <input type="datetime-local" id="deliveryTime" v-model="orderData.delivery_time" required>
       </div>
       <div>
-        <label for="deliveryMethod">Delivery Method:</label>
-        <input type="text" id="deliveryMethod" v-model="orderData.delivery_method" required>
+        <label>Delivery Method:</label>
+        <label>
+          <input type="radio" value="self_pickup" v-model="orderData.delivery_method">
+          Self Pickup
+        </label>
+        <label>
+          <input type="radio" value="delivery" v-model="orderData.delivery_method">
+          Delivery
+        </label>
       </div>
-      <div>
-        <label for="paymentMethod">Payment Method:</label>
-        <input type="text" id="paymentMethod" v-model="orderData.payment_method" required>
-      </div>
-      <div>
+      <div v-if="orderData.delivery_method === 'delivery'">
         <label for="deliveryAddress">Delivery Address:</label>
         <input type="text" id="deliveryAddress" v-model="orderData.delivery_address" required>
+      </div>
+      <div>
+        <label>Payment Method:</label>
+        <label>
+          <input type="radio" value="cash" v-model="orderData.payment_method">
+          Cash
+        </label>
+        <label>
+          <input type="radio" value="card" v-model="orderData.payment_method">
+          Card
+        </label>
       </div>
       <button type="submit">Create Order</button>
     </form>
@@ -31,15 +45,14 @@
 import axios from 'axios';
 
 export default {
-  name: 'OrdersPage',
   data() {
     return {
       orderData: {
         total_price: 0,
         delivery_time: '',
-        delivery_method: '',
-        payment_method: '',
+        delivery_method: 'self_pickup',
         delivery_address: '',
+        payment_method: 'cash',
       },
     };
   },
