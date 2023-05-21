@@ -7,7 +7,7 @@
     <div v-else>
       <ul>
         <li v-for="item in cartItems" :key="item.id">
-<!--          <img :src="item.product.image">-->
+          <img :src="item.product.image">
           <p>{{ item.product.name }}</p>
           <p>{{ item.product.price }}</p>
           <p>{{ item.quantity }}</p>
