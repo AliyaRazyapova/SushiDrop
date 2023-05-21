@@ -43,10 +43,10 @@ export default {
         const response = await axios.post("http://localhost:8000/api/core/login/", loginData);
 
         if (response.status === 200) {
-          const token = response.data.token; // Получение токена из ответа
+          const token = response.data.token;
           this.message = "Вы успешно авторизовались!";
           localStorage.setItem("access_token", token);
-          this.$router.push("/profile/");
+          this.$router.push("/");
         }
       } catch (error) {
         if (error.response && error.response.data && error.response.data.error) {
