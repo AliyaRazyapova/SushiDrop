@@ -6,8 +6,8 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/core/', include('core.urls')),
-    path('api/', include('products.urls')),
-    path('cart/', include('cart.urls')),
+    path('api/products/', include('products.urls')),
+    path('api/cart/', include('cart.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
     path('auth/', include('django.contrib.auth.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
