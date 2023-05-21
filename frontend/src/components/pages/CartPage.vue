@@ -7,8 +7,10 @@
     <div v-else>
       <ul>
         <li v-for="item in cartItems" :key="item.id">
-          <p>Product: {{ item.product }}</p>
-          <p>Quantity: {{ item.quantity }}</p>
+<!--          <img :src="item.product.image">-->
+          <p>{{ item.product.name }}</p>
+          <p>{{ item.product.price }}</p>
+          <p>{{ item.quantity }}</p>
         </li>
       </ul>
     </div>
@@ -33,17 +35,54 @@ export default {
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-      console.log(headers)
 
       axios
         .get('http://localhost:8000/api/cart/', { headers })
         .then((response) => {
-          this.cartItems = response.data;
+          console.log(response.data);
+          const cartItems = response.data;
+
+          const groupedItems = {};
+
+          cartItems.forEach((item) => {
+            if (item.product in groupedItems) {
+              groupedItems[item.product].quantity += item.quantity;
+            } else {
+              groupedItems[item.product] = {
+                id: item.id,
+                user: item.user,
+                product: null,
+                quantity: item.quantity,
+              };
+            }
+          });
+
+          const promises = [];
+
+          Object.keys(groupedItems).forEach((productId) => {
+            const promise = axios.get(`http://localhost:8000/api/products/${productId}/`, { headers });
+            promises.push(promise);
+          });
+
+          Promise.all(promises)
+            .then((responses) => {
+              responses.forEach((response, index) => {
+                const productId = Object.keys(groupedItems)[index];
+                groupedItems[productId].product = response.data;
+              });
+
+              const cartItemsWithProduct = Object.values(groupedItems);
+
+              this.cartItems = cartItemsWithProduct;
+            })
+            .catch((error) => {
+              console.error('Failed to fetch product', error);
+            });
         })
         .catch((error) => {
           console.error('Failed to fetch cart items', error);
         });
-    },
+      },
   },
 };
 </script>
