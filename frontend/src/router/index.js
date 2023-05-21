@@ -14,6 +14,7 @@ import NapitkiIDesertyPage from "@/components/pages/NapitkiIDesertyPage";
 import SpetsiiPage from "@/components/pages/SpetsiiPage";
 import ProductProfile from "@/components/elements/ProductProfile";
 import CartPage from "@/components/pages/CartPage";
+import EditProfile from "@/components/elements/EditProfile";
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
     meta: {
       requiresAuth: true,
     }
+  },
+  {
+    path: '/profile/edit',
+    name: 'EditProfile',
+    component: EditProfile
   },
   {
     path: '/nabory',
