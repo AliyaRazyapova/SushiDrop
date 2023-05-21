@@ -11,8 +11,10 @@
           <p>{{ item.product.name }}</p>
           <p>{{ item.product.price }}</p>
           <p>{{ item.quantity }}</p>
+          <p>{{ item.totalPrice }}</p>
         </li>
       </ul>
+      <p>{{ totalCost }}</p>
     </div>
   </div>
 </template>
@@ -73,6 +75,10 @@ export default {
 
               const cartItemsWithProduct = Object.values(groupedItems);
 
+              cartItemsWithProduct.forEach((item) => {
+                item.totalPrice = item.product.price * item.quantity;
+              });
+
               this.cartItems = cartItemsWithProduct;
             })
             .catch((error) => {
@@ -84,5 +90,10 @@ export default {
         });
       },
   },
+  computed: {
+    totalCost() {
+      return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
+    }
+  }
 };
 </script>
