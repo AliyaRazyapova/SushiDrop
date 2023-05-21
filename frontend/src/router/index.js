@@ -16,6 +16,7 @@ import ProductProfile from "@/components/elements/ProductProfile";
 import CartPage from "@/components/pages/CartPage";
 import EditProfile from "@/components/elements/EditProfile";
 import CreateProduct from "@/components/admin/CreateProduct";
+import OrdersPage from "@/components/pages/OrdersPage";
 
 const routes = [
   {
@@ -39,6 +40,11 @@ const routes = [
     path: '/cart',
     name: 'CartPage',
     component: CartPage
+  },
+  {
+    path: '/orders',
+    name: 'OrdersPage',
+    component: OrdersPage
   },
   {
     path: '/register',
