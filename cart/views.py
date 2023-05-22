@@ -28,6 +28,11 @@ class CartAddView(APIView):
     authentication_classes = [CustomJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Add product to cart",
+        request_body=CartSerializer,
+        responses={200: openapi.Response("OK"), 400: openapi.Response("Bad Request")}
+    )
     def post(self, request):
         data = request.data.copy()
         data['user'] = request.user.id
