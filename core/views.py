@@ -95,6 +95,19 @@ class UserProfileView(APIView):
         }
         return Response(data)
 
+    @swagger_auto_schema(
+        operation_description="Update user profile",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'first_name': openapi.Schema(type=openapi.TYPE_STRING),
+                'last_name': openapi.Schema(type=openapi.TYPE_STRING),
+                'phone_number': openapi.Schema(type=openapi.TYPE_STRING),
+                'address': openapi.Schema(type=openapi.TYPE_STRING)
+            }
+        ),
+        responses={200: openapi.Response("OK")}
+    )
     def put(self, request):
         user = request.user
         data = request.data
