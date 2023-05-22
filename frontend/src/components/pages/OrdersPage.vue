@@ -1,11 +1,19 @@
 <template>
   <div>
     <h1>Create Order</h1>
+    <div>
+      <h2>Order Details</h2>
+      <ul>
+        <li v-for="item in deserializedOrderItems" :key="item.id">
+          <p>{{ item.product.name }}</p>
+          <p>{{ item.product.price }}</p>
+          <p>{{ item.quantity }}</p>
+          <p>{{ item.totalPrice }}</p>
+        </li>
+      </ul>
+      <p>Total Price: {{ orderData.total_price }}</p>
+    </div>
     <form @submit.prevent="createOrder">
-      <div>
-        <label for="totalPrice">Total Price:</label>
-        <input type="number" id="totalPrice" v-model="orderData.total_price" required>
-      </div>
       <div>
         <label for="deliveryTime">Delivery Time:</label>
         <input type="datetime-local" id="deliveryTime" v-model="orderData.delivery_time" required>
@@ -48,6 +56,7 @@ export default {
   data() {
     return {
       orderData: {
+        orderItems: [],
         total_price: 0,
         delivery_time: '',
         delivery_method: 'self_pickup',
@@ -56,7 +65,21 @@ export default {
       },
     };
   },
+  mounted() {
+    this.getOrderDataFromCart();
+  },
+  computed: {
+    deserializedOrderItems() {
+      const orderItemsString = this.$route.query.orderItems;
+      const orderItems = JSON.parse(orderItemsString);
+      return orderItems;
+    },
+  },
   methods: {
+    getOrderDataFromCart() {
+      this.orderData = this.$route.query;
+      console.log(this.orderData)
+    },
     createOrder() {
       const token = localStorage.getItem('access_token');
       const headers = {
