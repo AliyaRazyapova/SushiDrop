@@ -77,8 +77,10 @@ export default {
   },
   methods: {
     getOrderDataFromCart() {
-      this.orderData = this.$route.query;
-      console.log(this.orderData)
+      const orderItemsString = this.$route.query.orderItems;
+      const orderItems = JSON.parse(orderItemsString);
+      this.orderData.orderItems = orderItems;
+      console.log(this.orderData);
     },
     createOrder() {
       const token = localStorage.getItem('access_token');
@@ -86,8 +88,16 @@ export default {
         Authorization: `Bearer ${token}`,
       };
 
+      const orderData = {
+        delivery_time: this.orderData.delivery_time,
+        delivery_method: this.orderData.delivery_method,
+        delivery_address: this.orderData.delivery_address,
+        payment_method: this.orderData.payment_method,
+        order_items: this.orderData.orderItems,
+      };
+
       axios
-        .post('http://localhost:8000/api/orders/', this.orderData, { headers })
+        .post('http://localhost:8000/api/orders/', orderData, { headers })
         .then((response) => {
           console.log(response.data);
         })
