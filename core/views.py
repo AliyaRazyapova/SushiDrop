@@ -36,6 +36,11 @@ class LoginView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        operation_description="User login",
+        request_body=UserSerializer,
+        responses={200: openapi.Response("OK"), 401: openapi.Response("Unauthorized")}
+    )
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
