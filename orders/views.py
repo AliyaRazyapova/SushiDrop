@@ -11,9 +11,7 @@ class OrderView(APIView):
     authentication_classes = [CustomJWTAuthentication]
 
     def post(self, request):
-        data = request.data.copy()
-        data['user'] = request.user.id
-        serializer = OrderSerializer(data=data)
+        serializer = OrderSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'success': True, 'message': 'Order created successfully'})
