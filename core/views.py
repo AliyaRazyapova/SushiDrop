@@ -1,6 +1,8 @@
 import jwt
 import hashlib
 
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -17,6 +19,11 @@ from django.conf import settings
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        operation_description="User registration",
+        request_body=UserSerializer,
+        responses={201: openapi.Response("Created"), 400: openapi.Response("Bad Request")}
+    )
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
