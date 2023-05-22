@@ -80,6 +80,10 @@ class UserProfileView(APIView):
     authentication_classes = [CustomJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Get user profile",
+        responses={200: openapi.Response("OK")}
+    )
     def get(self, request):
         user = request.user
         data = {
