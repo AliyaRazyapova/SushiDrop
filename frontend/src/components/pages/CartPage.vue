@@ -6,7 +6,7 @@
     </div>
     <div v-else>
       <ul>
-        <li v-for="item in cartItems" :key="item.id">
+        <li v-for="item in groupedCartItems" :key="item.id">
           <img :src="item.product.image">
           <p>{{ item.product.name }}</p>
           <p>{{ item.product.price }}</p>
@@ -15,6 +15,7 @@
         </li>
       </ul>
       <p>{{ totalCost }}</p>
+      <button @click="proceedToOrderPage">Place Order</button>
     </div>
   </div>
 </template>
@@ -88,12 +89,41 @@ export default {
         .catch((error) => {
           console.error('Failed to fetch cart items', error);
         });
-      },
+    },
+    proceedToOrderPage() {
+      const orderData = {
+        orderItems: JSON.stringify(this.groupedCartItems),
+        total_price: this.totalCost,
+      };
+      console.log(orderData)
+      this.$router.push({ name: 'OrdersPage', query: orderData });
+    },
   },
   computed: {
+    groupedCartItems() {
+      const groupedItems = {};
+
+      this.cartItems.forEach((item) => {
+        const productId = item.product.id;
+        if (productId in groupedItems) {
+          groupedItems[productId].quantity += item.quantity;
+          groupedItems[productId].totalPrice += item.totalPrice;
+        } else {
+          groupedItems[productId] = {
+            id: item.id,
+            user: item.user,
+            product: item.product,
+            quantity: item.quantity,
+            totalPrice: item.totalPrice,
+          };
+        }
+      });
+
+      return Object.values(groupedItems);
+    },
     totalCost() {
-      return this.cartItems.reduce((total, item) => total + item.totalPrice, 0);
-    }
-  }
+      return this.groupedCartItems.reduce((total, item) => total + item.totalPrice, 0);
+    },
+  },
 };
 </script>
