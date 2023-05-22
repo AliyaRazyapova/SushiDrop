@@ -44,7 +44,8 @@ const routes = [
   {
     path: '/orders',
     name: 'OrdersPage',
-    component: OrdersPage
+    component: OrdersPage,
+    props: true
   },
   {
     path: '/register',
