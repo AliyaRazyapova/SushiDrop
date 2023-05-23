@@ -13,8 +13,7 @@
         <div :class="{'gramms': !isProfileUrl, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
         <div :class="{'description': !isProfileUrl, 'description--profile': isProfileUrl}">{{product.description}}</div>
         <div v-if="product.discountedPrice" :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
-        <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.discountedPrice }} ₽</div>
-          <div class="discounted-price" :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
+          <div class="discounted-price" :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.discountedPrice }} ₽</div>
         </div>
         <div v-else :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
           <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
