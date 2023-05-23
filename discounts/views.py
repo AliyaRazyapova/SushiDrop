@@ -8,8 +8,8 @@ from .serializers import DiscountSerializer
 
 
 class DiscountView(APIView):
-    authentication_classes = [CustomJWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes = []
+    permission_classes = []
 
     def get(self, request):
         discounts = Discount.objects.all()

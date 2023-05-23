@@ -3,7 +3,7 @@
     <h1>Discounts</h1>
     <ul>
       <li v-for="discount in discounts" :key="discount.id">
-        <p>Product: {{ discount.product.name }}</p>
+        <p>Product: {{ discount.product }}</p>
         <p>Discount Percentage: {{ discount.discount_percentage }}</p>
         <p>Start Date: {{ discount.start_date }}</p>
         <p>End Date: {{ discount.end_date }}</p>
@@ -27,13 +27,9 @@ export default {
   },
   methods: {
     getDiscounts() {
-      const token = localStorage.getItem('access_token');
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      axios.get('http://localhost:8000/api/discounts/', { headers })
+      axios.get('http://localhost:8000/api/discounts/')
         .then(response => {
+          console.log(response.data);
           this.discounts = response.data;
         })
         .catch(error => {
