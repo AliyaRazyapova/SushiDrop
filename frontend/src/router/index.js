@@ -17,6 +17,7 @@ import CartPage from "@/components/pages/CartPage";
 import EditProfile from "@/components/elements/EditProfile";
 import CreateProduct from "@/components/admin/CreateProduct";
 import OrdersPage from "@/components/pages/OrdersPage";
+import DiscountsForm from "@/components/admin/DiscountsForm";
 
 const routes = [
   {
@@ -46,6 +47,11 @@ const routes = [
     name: 'OrdersPage',
     component: OrdersPage,
     props: true
+  },
+  {
+    path: '/discounts',
+    name: 'DiscountsForm',
+    component: DiscountsForm
   },
   {
     path: '/register',
