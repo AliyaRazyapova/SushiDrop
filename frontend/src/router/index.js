@@ -17,7 +17,7 @@ import CartPage from "@/components/pages/CartPage";
 import EditProfile from "@/components/elements/EditProfile";
 import CreateProduct from "@/components/admin/CreateProduct";
 import OrdersPage from "@/components/pages/OrdersPage";
-import DiscountsList from "@/components/admin/DiscountsList";
+import DiscountsList from "@/components/pages/DiscountsList";
 
 const routes = [
   {
