@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import DiscountView
+from . import views
 
 urlpatterns = [
-    path('', DiscountView.as_view(), name='discounts'),
+    path('', views.DiscountView.as_view(), name='discounts'),
+    path('add/', views.DiscountCreateView.as_view(), name='create_discounts')
 ]
