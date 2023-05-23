@@ -15,7 +15,8 @@ class DiscountView(APIView):
 
     def get(self, request):
         current_date = timezone.now().date()
-        discounts = Discount.objects.filter(end_date__gte=current_date)
+        product_id = request.query_params.get('product')
+        discounts = Discount.objects.filter(product_id=product_id, end_date__gte=current_date)
         serializer = DiscountSerializer(discounts, many=True)
         return Response(serializer.data)
 
