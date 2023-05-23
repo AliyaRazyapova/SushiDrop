@@ -1,8 +1,13 @@
 import jwt
 import hashlib
+import requests
+
+from django.shortcuts import redirect
+from django.conf import settings
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -13,7 +18,6 @@ from sushidrop import settings
 from core.models import User
 from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from core.auth import CustomJWTAuthentication
-from django.conf import settings
 
 
 class RegisterView(APIView):
@@ -58,27 +62,40 @@ class LoginView(APIView):
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-# def vk_oauth2_callback(request):
-#     code = request.GET.get('code')
-#
-#     response = requests.post('https://oauth.vk.com/access_token', params={
-#         'client_id': settings.SOCIAL_AUTH_VK_OAUTH2_KEY,
-#         'client_secret': settings.SOCIAL_AUTH_VK_OAUTH2_SECRET,
-#         'redirect_uri': settings.SOCIAL_AUTH_VK_OAUTH2_REDIRECT_URI,
-#         'code': code
-#     })
-#
-#     access_token = response.json().get('access_token')
-#     user_response = requests.get('https://api.vk.com/method/users.get', params={
-#         'access_token': access_token,
-#         'fields': 'email',
-#         'v': '5.130',
-#     })
-#
-#     user_data = user_response.json().get('response')[0]
-#     request.session['user_data'] = user_data
-#
-#     return redirect('http://localhost:8080/')
+def generate_jwt_token(user_data):
+    payload = {
+        'user_id': user_data['id']
+    }
+    token = jwt.encode(payload, 'your_secret_key', algorithm='HS256')
+    return token
+
+
+def vk_oauth2_callback(request):
+    code = request.GET.get('code')
+
+    response = requests.post('https://oauth.vk.com/access_token', params={
+        'client_id': settings.SOCIAL_AUTH_VK_OAUTH2_KEY,
+        'client_secret': settings.SOCIAL_AUTH_VK_OAUTH2_SECRET,
+        'redirect_uri': settings.SOCIAL_AUTH_VK_OAUTH2_REDIRECT_URI,
+        'code': code
+    })
+
+    access_token = response.json().get('access_token')
+    user_response = requests.get('https://api.vk.com/method/users.get', params={
+        'access_token': access_token,
+        'fields': 'email',
+        'v': '5.130',
+    })
+
+    user_data = user_response.json().get('response')[0]
+    request.session['user_data'] = user_data
+
+    jwt_token = generate_jwt_token(user_data)
+
+    request.session['jwt_token'] = jwt_token
+
+    redirect_url = f"http://localhost:8080/login?jwt_token={jwt_token}"
+    return redirect(redirect_url)
 
 
 class UserProfileView(APIView):
