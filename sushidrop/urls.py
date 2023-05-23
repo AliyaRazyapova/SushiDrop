@@ -5,6 +5,8 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
+from core import views
+
 schema_view = get_schema_view(
     openapi.Info(
         title="API Documentation",
@@ -28,5 +30,5 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    # path('auth/vk/callback/', views.vk_oauth2_callback, name='vk_oauth2_callback'),
+    path('auth/vk/callback/', views.vk_oauth2_callback, name='vk_oauth2_callback'),
 ]
