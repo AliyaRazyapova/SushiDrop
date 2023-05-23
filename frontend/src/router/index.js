@@ -18,6 +18,7 @@ import EditProfile from "@/components/elements/EditProfile";
 import CreateProduct from "@/components/admin/CreateProduct";
 import OrdersPage from "@/components/pages/OrdersPage";
 import DiscountsList from "@/components/pages/DiscountsList";
+import CreateDiscounts from "@/components/admin/CreateDiscounts";
 
 const routes = [
   {
@@ -52,6 +53,12 @@ const routes = [
     path: '/discounts',
     name: 'DiscountsList',
     component: DiscountsList
+  },
+  {
+    path: '/discounts/add',
+    name: 'CreateDiscounts',
+    component: CreateDiscounts,
+    props: true
   },
   {
     path: '/register',
