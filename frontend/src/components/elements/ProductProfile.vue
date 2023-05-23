@@ -12,8 +12,8 @@
       <div :class="{'gramms_price': !isProfileUrl, 'gramms_price--profile': isProfileUrl}">
         <div :class="{'gramms': !isProfileUrl, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
         <div :class="{'description': !isProfileUrl, 'description--profile': isProfileUrl}">{{product.description}}</div>
-        <div v-if="product.discountedPrice" :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
-          <div class="discounted-price" :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.discountedPrice }} ₽</div>
+        <div v-if="product.discountedPrice" :class="{'price_1 price_1_2': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
+          <div class="discounted-price" :class="{'price price_2': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.discountedPrice }} ₽</div>
         </div>
         <div v-else :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
           <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
@@ -192,6 +192,14 @@ export default {
     line-height: 20px;
 
     color: #F52341;
+  }
+
+  .price_1_2 {
+    background: #ffa600;
+  }
+
+  .price_2 {
+    color: #FAFAFA;
   }
 
   .description, .header, .list, .counter {
