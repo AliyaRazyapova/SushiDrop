@@ -1,7 +1,12 @@
 <template>
-  <div class="product-list">
-    <div v-for="product in products" :key="product.id">
-      <product-profile :productId="product.id" @goToProfile="goToProfile" />
+  <div>
+    <div class="search-bar">
+      <input type="text" v-model="searchQuery" placeholder="Search..." @input="searchProducts" />
+    </div>
+    <div class="product-list">
+      <div v-for="product in filteredProducts" :key="product.id">
+        <product-profile :productId="product.id" @goToProfile="goToProfile" />
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +27,8 @@ export default {
   },
   data() {
     return {
-      products: []
+      products: [],
+      searchQuery: ''
     }
   },
   mounted() {
@@ -39,15 +45,33 @@ export default {
       }
     },
     goToProfile(productId) {
-      console.log(productId)
       this.$router.push({ name: 'ProductProfile', params: { productId } });
+    },
+    searchProducts() {
+      const searchRegex = new RegExp(this.searchQuery, 'i');
+      this.filteredProducts = this.products.filter(product => searchRegex.test(product.name));
+    }
+  },
+  computed: {
+    filteredProducts() {
+      if (this.searchQuery === '') {
+        return this.products;
+      } else {
+        const searchRegex = new RegExp(this.searchQuery, 'i');
+        return this.products.filter(product => searchRegex.test(product.name));
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+  .search-bar {
+    margin-bottom: 1rem;
+  }
+
   .product-list {
+    display: flex;
     flex-wrap: wrap;
   }
 </style>
