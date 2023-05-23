@@ -27,7 +27,12 @@ export default {
   },
   methods: {
     getDiscounts() {
-      axios.get('http://localhost:8000/api/discounts/')
+      const token = localStorage.getItem('access_token');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      axios.get('http://localhost:8000/api/discounts/', { headers })
         .then(response => {
           this.discounts = response.data;
         })
