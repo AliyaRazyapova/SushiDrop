@@ -12,14 +12,17 @@
       </div>
       <button type="submit">Войти</button>
     </form>
+    <VKForm />
     <p v-if="message">{{ message }}</p>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import VKForm from "@/components/forms/VKForm";
 
 export default {
+  components: {VKForm},
   data() {
     return {
       email: "",
