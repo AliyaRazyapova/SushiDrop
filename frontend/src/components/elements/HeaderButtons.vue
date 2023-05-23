@@ -1,5 +1,6 @@
 <template>
   <div class="buttons">
+    <button @click="goToDiscounts">Скидки</button>
     <button v-if="isLoggedIn" @click="goToProfile">Профиль</button>
     <button v-else @click="goToRegister">Регистрация</button>
     <button v-if="isLoggedIn" class="button_1" @click="goToCart">Корзина</button>
@@ -32,6 +33,9 @@ export default {
     },
     goToRegister() {
       this.$router.push('/register');
+    },
+    goToDiscounts() {
+      this.$router.push('/discounts');
     }
   }
 }
