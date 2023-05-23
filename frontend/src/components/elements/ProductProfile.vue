@@ -12,7 +12,11 @@
       <div :class="{'gramms_price': !isProfileUrl, 'gramms_price--profile': isProfileUrl}">
         <div :class="{'gramms': !isProfileUrl, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
         <div :class="{'description': !isProfileUrl, 'description--profile': isProfileUrl}">{{product.description}}</div>
-        <div :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
+        <div v-if="product.discountedPrice" :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
+        <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.discountedPrice }} ₽</div>
+          <div class="discounted-price" :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
+        </div>
+        <div v-else :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
           <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
         </div>
         <div :class="{'counter': !isProfileUrl, 'counter--profile': isProfileUrl}">
@@ -59,6 +63,7 @@ export default {
         const data = await response.json();
         this.product = data;
         this.product.quantity = 1;
+        await this.getDiscount();
       } catch (error) {
         console.error(error);
       }
@@ -102,7 +107,23 @@ export default {
             console.error('Failed to add product to cart', error);
           });
       }
-    }
+    },
+    async getDiscount() {
+      try {
+        const response = await fetch(`http://localhost:8000/api/discounts/?product=${this.productId}`);
+        if (!response.ok) {
+          throw new Error(response.status + ' ' + response.statusText);
+        }
+        const data = await response.json();
+        if (data.length > 0) {
+          const discount = data[0];
+          const discountPrice = this.product.price - (this.product.price * (discount.discount_percentage / 100));
+          this.product.discountedPrice = discountPrice.toFixed(2);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
   }
 }
 </script>
