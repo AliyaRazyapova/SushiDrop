@@ -17,7 +17,7 @@ import CartPage from "@/components/pages/CartPage";
 import EditProfile from "@/components/elements/EditProfile";
 import CreateProduct from "@/components/admin/CreateProduct";
 import OrdersPage from "@/components/pages/OrdersPage";
-import DiscountsForm from "@/components/admin/DiscountsForm";
+import DiscountsList from "@/components/admin/DiscountsList";
 
 const routes = [
   {
@@ -50,8 +50,8 @@ const routes = [
   },
   {
     path: '/discounts',
-    name: 'DiscountsForm',
-    component: DiscountsForm
+    name: 'DiscountsList',
+    component: DiscountsList
   },
   {
     path: '/register',

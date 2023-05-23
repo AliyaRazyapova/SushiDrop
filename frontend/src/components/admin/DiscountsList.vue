@@ -16,7 +16,7 @@
 import axios from 'axios';
 
 export default {
-  name: 'DiscountsForm',
+  name: 'DiscountsList',
   data() {
     return {
       discounts: [],
