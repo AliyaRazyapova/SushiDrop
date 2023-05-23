@@ -1,10 +1,9 @@
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from core.auth import CustomJWTAuthentication
 from .models import Discount
 from .serializers import DiscountSerializer
+from django.utils import timezone
 
 
 class DiscountView(APIView):
@@ -12,6 +11,7 @@ class DiscountView(APIView):
     permission_classes = []
 
     def get(self, request):
-        discounts = Discount.objects.all()
+        current_date = timezone.now().date()
+        discounts = Discount.objects.filter(end_date__gte=current_date)
         serializer = DiscountSerializer(discounts, many=True)
         return Response(serializer.data)

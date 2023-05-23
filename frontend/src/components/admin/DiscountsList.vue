@@ -2,13 +2,13 @@
   <div>
     <h1>Discounts</h1>
     <ul>
-      <li v-for="discount in discounts" :key="discount.id">
+      <li v-for="discount in filteredDiscounts" :key="discount.id">
         <p>Product: {{ discount.product.name }}</p>
         <p>Discount Percentage: {{ discount.discount_percentage }}</p>
-        <p>Price: {{ discount.product.price }}</p>
-        <p>Discounted Price: {{ calculateDiscountedPrice(discount) }}</p>
         <p>Start Date: {{ discount.start_date }}</p>
         <p>End Date: {{ discount.end_date }}</p>
+        <p>Price: {{ discount.product.price }}</p>
+        <p>Discounted Price: {{ calculateDiscountedPrice(discount) }}</p>
       </li>
     </ul>
   </div>
@@ -26,6 +26,12 @@ export default {
   },
   mounted() {
     this.getDiscounts();
+  },
+  computed: {
+    filteredDiscounts() {
+      const currentDate = new Date();
+      return this.discounts.filter(discount => new Date(discount.end_date) >= currentDate);
+    },
   },
   methods: {
     getDiscounts() {
