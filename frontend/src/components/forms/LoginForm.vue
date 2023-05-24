@@ -13,6 +13,7 @@
       <button type="submit">Войти</button>
     </form>
     <VKForm />
+    <ResetPassword />
     <p v-if="message">{{ message }}</p>
   </div>
 </template>
@@ -20,9 +21,10 @@
 <script>
 import axios from "axios";
 import VKForm from "@/components/forms/VKForm";
+import ResetPassword from "@/components/forms/ResetPassword.vue";
 
 export default {
-  components: {VKForm},
+  components: {ResetPassword, VKForm},
   data() {
     return {
       email: "",
