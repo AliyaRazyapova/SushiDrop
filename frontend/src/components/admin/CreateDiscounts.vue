@@ -28,7 +28,7 @@ export default {
       discountPercentage: null,
       startDate: null,
       endDate: null,
-      products: [], // Populate this with available products
+      products: [],
     };
   },
   mounted() {
