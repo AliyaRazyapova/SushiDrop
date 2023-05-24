@@ -4,6 +4,9 @@ import requests
 
 from django.shortcuts import redirect
 from django.conf import settings
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
+from django.urls import reverse
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -13,6 +16,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 
 from sushidrop import settings
 from core.models import User
@@ -143,3 +147,24 @@ class UserProfileView(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def reset_password(request):
+    email = request.data.get('email')
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    token = default_token_generator.make_token(user)
+    reset_link = request.build_absolute_uri(reverse('password_reset_confirm', kwargs={'uidb64': user.pk, 'token': token}))
+
+    subject = 'Password Reset'
+    message = f'Click the link below to reset your password:\n\n{reset_link}'
+    from_email = settings.EMAIL_HOST_USER
+    to_email = [email]
+    send_mail(subject, message, from_email, to_email)
+
+    return Response({'success': 'Email sent'}, status=status.HTTP_200_OK)
