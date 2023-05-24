@@ -59,7 +59,7 @@ export default {
   methods: {
     async loadCategories() {
       try {
-        const response = await fetch('http://localhost:8000/api/categories/')
+        const response = await fetch('http://localhost:8000/api/products/categories/')
         const data = await response.json()
         this.categories = data
       } catch (error) {
