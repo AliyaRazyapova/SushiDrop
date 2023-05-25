@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <input type="email" v-model="email" name="email" placeholder="Введите ваш email">
-    <button class="vk-button" @click="authorize">Авторизация через VK</button>
+  <div class="login-vk">
+    <h2 class="login-vk-title">Вход через ВКонтакте</h2>
+    <input type="email" v-model="email" name="email" placeholder="Введите ваш email" class="email-input">
+    <button class="vk-button" @click="authorize">Войти</button>
   </div>
 </template>
 
@@ -32,19 +33,38 @@ export default {
 </script>
 
 <style scoped>
-.vk-button {
-  padding: 7px 20px;
-  background-color: #4A76A8;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
+  .login-vk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+  }
 
-.vk-button:hover {
-  background-color: #375E91;
-}
+  .login-vk-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .email-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .vk-button {
+    padding: 7px 20px;
+    background-color: #4A76A8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .vk-button:hover {
+    background-color: #375E91;
+  }
 </style>
-
-
