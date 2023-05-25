@@ -1,50 +1,64 @@
 <template>
-  <div>
-    <h1>Create Order</h1>
-    <div>
-      <h2>Order Details</h2>
-      <ul>
-        <li v-for="item in deserializedOrderItems" :key="item.id">
-          <p>{{ item.product.name }}</p>
-          <p>{{ item.product.price }}</p>
-          <p>{{ item.quantity }}</p>
-          <p>{{ item.totalPrice }}</p>
-        </li>
-      </ul>
-      <p>Total Price: {{ orderData.total_price }}</p>
+  <div class="create-order-container">
+    <h1 class="create-order-heading">Оформление заказа</h1>
+    <div class="order-details-container">
+      <h2 class="order-details-heading">Детали заказа</h2>
+      <table class="order-details-table">
+        <thead>
+          <tr>
+            <th>Продукт</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Общая стоимость</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in deserializedOrderItems" :key="item.id">
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.totalPrice }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="total-price">Общая стоимость: {{ orderData.total_price }}</p>
     </div>
-    <form @submit.prevent="createOrder">
-      <div>
-        <label for="deliveryTime">Delivery Time:</label>
+    <form @submit.prevent="createOrder" class="order-form">
+      <div class="form-group">
+        <label for="deliveryTime">Время доставки:</label>
         <input type="datetime-local" id="deliveryTime" v-model="orderData.delivery_time" required>
       </div>
-      <div>
-        <label>Delivery Method:</label>
-        <label>
-          <input type="radio" value="self_pickup" v-model="orderData.delivery_method">
-          Self Pickup
-        </label>
-        <label>
-          <input type="radio" value="delivery" v-model="orderData.delivery_method">
-          Delivery
-        </label>
+      <div class="form-group">
+        <label>Способ доставки:</label>
+        <div class="row">
+          <label>
+            <input type="radio" value="self_pickup" v-model="orderData.delivery_method">
+            Самовывоз
+          </label>
+          <label>
+            <input type="radio" value="delivery" v-model="orderData.delivery_method">
+            Доставка
+          </label>
+        </div>
       </div>
-      <div v-if="orderData.delivery_method === 'delivery'">
-        <label for="deliveryAddress">Delivery Address:</label>
+      <div v-if="orderData.delivery_method === 'delivery'" class="form-group">
+        <label for="deliveryAddress">Адрес доставки:</label>
         <input type="text" id="deliveryAddress" v-model="orderData.delivery_address" required>
       </div>
-      <div>
-        <label>Payment Method:</label>
-        <label>
-          <input type="radio" value="cash" v-model="orderData.payment_method">
-          Cash
-        </label>
-        <label>
-          <input type="radio" value="card" v-model="orderData.payment_method">
-          Card
-        </label>
+      <div class="form-group">
+        <label>Способ оплаты:</label>
+        <div class="row">
+          <label>
+            <input type="radio" value="cash" v-model="orderData.payment_method">
+            Наличные
+          </label>
+          <label>
+            <input type="radio" value="card" v-model="orderData.payment_method">
+            Карта
+          </label>
+        </div>
       </div>
-      <button type="submit">Create Order</button>
+      <button type="submit" class="create-order-button">Оформить заказ</button>
     </form>
   </div>
 </template>
@@ -108,3 +122,99 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .create-order-container {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .create-order-heading {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .order-details-container {
+    margin-bottom: 20px;
+  }
+
+  .order-details-heading {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .order-details-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .order-details-table th,
+  .order-details-table td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+  }
+
+  .order-details-table th {
+    background-color: #f0f0f0;
+  }
+
+  .total-price {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: right;
+  }
+
+  .order-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="datetime-local"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+  }
+
+  .create-order-button {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 24px;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+
+  .create-order-button:hover {
+    background-color: #cc0000;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+</style>
