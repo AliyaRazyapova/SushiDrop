@@ -21,6 +21,17 @@ class DiscountView(APIView):
         return Response(serializer.data)
 
 
+class DiscountListView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request):
+        current_date = timezone.now().date()
+        discounts = Discount.objects.filter(end_date__gte=current_date)
+        serializer = DiscountSerializer(discounts, many=True)
+        return Response(serializer.data)
+
+
 class DiscountCreateView(APIView):
     authentication_classes = [CustomJWTAuthentication]
     permission_classes = [IsAuthenticated]

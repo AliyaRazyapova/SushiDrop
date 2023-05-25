@@ -2,13 +2,11 @@
   <div>
     <h1>Discounts</h1>
     <ul>
-      <li v-for="discount in filteredDiscounts" :key="discount.id">
+      <li v-for="discount in discounts" :key="discount.id">
         <p>Product: {{ discount.product.name }}</p>
         <p>Discount Percentage: {{ discount.discount_percentage }}</p>
         <p>Start Date: {{ discount.start_date }}</p>
         <p>End Date: {{ discount.end_date }}</p>
-        <p>Price: {{ discount.product.price }}</p>
-        <p>Discounted Price: {{ calculateDiscountedPrice(discount) }}</p>
       </li>
     </ul>
   </div>
@@ -27,28 +25,15 @@ export default {
   mounted() {
     this.getDiscounts();
   },
-  computed: {
-    filteredDiscounts() {
-      const currentDate = new Date();
-      return this.discounts.filter(discount => new Date(discount.end_date) >= currentDate);
-    },
-  },
   methods: {
     getDiscounts() {
-      axios.get('http://localhost:8000/api/discounts/')
+      axios.get('http://localhost:8000/api/discounts/list/')
         .then(response => {
-          console.log(response.data);
           this.discounts = response.data;
         })
         .catch(error => {
           console.error('Failed to fetch discounts', error);
         });
-    },
-    calculateDiscountedPrice(discount) {
-      const originalPrice = discount.product.price;
-      const discountPercentage = discount.discount_percentage;
-      const discountedPrice = originalPrice * (1 - discountPercentage / 100);
-      return discountedPrice.toFixed(2);
     },
   },
 };
