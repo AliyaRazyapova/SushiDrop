@@ -67,15 +67,22 @@ export default {
 
 <style scoped>
   .search-bar {
-    margin: 17px 19px 17px 19px;
+    margin: 1px 19px 17px 19px;
     width: 1100px;
     height: 26px;
   }
 
   .search-bar-input {
     margin: 1px 19px 17px 19px;
+    padding-left: 10px;
+
     width: 1100px;
     height: 27px;
+
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
   }
 
   .product-list {
