@@ -1,5 +1,6 @@
 from django.db import models
 from core.models import User
+from couriers.models import CourierOrder
 from products.models import Product
 
 
@@ -11,6 +12,11 @@ class Order(models.Model):
     delivery_method = models.CharField(max_length=100)
     payment_method = models.CharField(max_length=100)
     delivery_address = models.CharField(max_length=255)
+
+    courier_orders = models.ManyToManyField(CourierOrder, related_name='orders')
+
+    def __str__(self):
+        return f"Order: {self.id}"
 
 
 class OrderItem(models.Model):
