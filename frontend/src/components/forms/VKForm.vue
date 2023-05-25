@@ -38,7 +38,7 @@ export default {
     flex-direction: column;
     align-items: center;
     max-width: 400px;
-    margin: 0 auto;
+    margin: 80px auto;
   }
 
   .login-vk-title {
