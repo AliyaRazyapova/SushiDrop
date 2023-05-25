@@ -1,29 +1,119 @@
 <template>
-  <div>
-    <h1>Cart</h1>
+  <hea-der />
+  <category-list />
+  <div class="cart-container">
+    <h1 class="cart-heading">Корзина</h1>
     <div v-if="cartItems.length === 0">
-      <p>Your cart is empty.</p>
+      <p class="empty-cart-message">Ваша корзина пуста.</p>
     </div>
     <div v-else>
-      <ul>
-        <li v-for="item in groupedCartItems" :key="item.id">
-<!--          <img :src="item.product.image">-->
-          <p>{{ item.product.name }}</p>
-          <p>{{ item.product.price }}</p>
-          <p>{{ item.quantity }}</p>
-          <p>{{ item.totalPrice }}</p>
-        </li>
-      </ul>
-      <p>{{ totalCost }}</p>
-      <button @click="proceedToOrderPage">Place Order</button>
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Изображение</th>
+            <th>Продукт</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Общая стоимость</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in groupedCartItems" :key="item.id">
+            <td>
+              <img :src="item.product.image" alt="Product Image" class="product-image" />
+            </td>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.totalPrice }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="total-cost">Общая стоимость: {{ totalCost }}</div>
+      <div class="order-button-container">
+        <button @click="proceedToOrderPage" class="order-button">Оформить заказ</button>
+      </div>
     </div>
   </div>
 </template>
 
+<style>
+.cart-container {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 20px;
+}
+
+.cart-heading {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+.empty-cart-message {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #000000;
+}
+
+.cart-table th {
+  background-color: #f0f0f0;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.total-cost {
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: right;
+}
+
+.order-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.order-button {
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px 24px;
+  background-color: #F52341;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.order-button:hover {
+  background-color: #333333;
+}
+</style>
+
 <script>
 import axios from 'axios';
+import HeaDer from "@/components/elements/HeaDer";
+import CategoryList from "@/components/elements/CategoryList";
 
 export default {
+  components: {CategoryList, HeaDer},
   data() {
     return {
       cartItems: [],
