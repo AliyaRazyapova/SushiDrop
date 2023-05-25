@@ -17,10 +17,10 @@ import OrdersPage from "@/components/pages/OrdersPage";
 import CreateDiscounts from "@/components/admin/CreateDiscounts";
 import PasswordResetConfirmation from "@/components/forms/PasswordResetConfirmation.vue";
 import RegistrationPage from "@/components/pages/RegistrationPage";
-import ResetPassword from "@/components/forms/ResetPassword";
 import UserProfilePage from "@/components/pages/UserProfilePage";
 import EditProfilePage from "@/components/pages/EditProfilePage";
 import DiscountsPage from "@/components/pages/DiscountsPage";
+import ResetPasswordPage from "@/components/pages/ResetPasswordPage";
 
 const routes = [
   {
@@ -132,8 +132,8 @@ const routes = [
   },
   {
     path: '/reset-password',
-    name: 'reset-password',
-    component: ResetPassword
+    name: 'reset-password-page',
+    component: ResetPasswordPage
   },
   {
     path: '/reset-password-confirm/:uid/:token',
