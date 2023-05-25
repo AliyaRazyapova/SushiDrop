@@ -112,19 +112,22 @@ export default {
 
       const orderData = {
         user: 1,
-        total_price: 0,
+        total_price: this.orderData.total_price,
         delivery_time: this.orderData.delivery_time,
         delivery_method: this.orderData.delivery_method,
         delivery_address: this.orderData.delivery_address,
         payment_method: this.orderData.payment_method,
-        order_items: this.orderData.orderItems.map(item => ({
-          product: item.product.id,
-          quantity: item.quantity,
-          total_price: item.totalPrice
-        }))
-      };
+        order_items: this.orderData.orderItems.map(item => {
+          const discountPercentage = item.product.discount_percentage || 0; // Set default discount percentage if not available
+          const totalPrice = item.product.price - (item.product.price * discountPercentage / 100);
 
-      console.log(this.orderData.orderItems)
+          return {
+            product: item.product.id,
+            quantity: item.quantity,
+            total_price: totalPrice
+          };
+        })
+      };
 
       axios
         .post('http://localhost:8000/api/orders/', orderData, { headers })
