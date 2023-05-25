@@ -9,7 +9,45 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'ResetPassword',
+  data() {
+    return {
+      email: '',
+    };
+  },
+  methods: {
+    resetPassword() {
+      fetch('http://localhost:8000/api/core/reset-password/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: this.email }),
+      })
+        .then(response => {
+          if (response.ok) {
+            alert('Password reset email sent.');
+            this.email = '';
+          } else {
+            throw new Error('Failed to reset password.');
+          }
+        })
+        .catch(error => {
+          alert('Failed to reset password. Please try again.');
+          console.error(error);
+        });
+    },
+  },
+};
+</script>
+
 <style scoped>
+  .reset-password-container {
+    margin-top: 80px;
+  }
+
   .reset-password-title {
     color: #000000;
     font-size: 24px;
@@ -51,37 +89,3 @@
     background-color: #DD0000;
   }
 </style>
-
-<script>
-export default {
-  name: 'ResetPassword',
-  data() {
-    return {
-      email: '',
-    };
-  },
-  methods: {
-    resetPassword() {
-      fetch('http://localhost:8000/api/core/reset-password/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: this.email }),
-      })
-        .then(response => {
-          if (response.ok) {
-            alert('Password reset email sent.');
-            this.email = '';
-          } else {
-            throw new Error('Failed to reset password.');
-          }
-        })
-        .catch(error => {
-          alert('Failed to reset password. Please try again.');
-          console.error(error);
-        });
-    },
-  },
-};
-</script>
