@@ -13,18 +13,14 @@
       <button type="submit" class="login-button">Войти</button>
     </form>
     <p v-if="message" class="login-message">{{ message }}</p>
-    <VKForm />
+    <button class="vk-button" @click="VK()">Авторизация через VK</button>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import VKForm from "@/components/forms/VKForm";
 
 export default {
-  components: {
-    VKForm
-  },
   data() {
     return {
       email: "",
@@ -33,6 +29,9 @@ export default {
     };
   },
   methods: {
+    VK() {
+      this.$router.push('/loginVk');
+    },
     async login() {
       if (!this.email || !this.password) {
         this.message = "Заполните все поля";
@@ -127,5 +126,19 @@ export default {
 
   .login-message {
     margin-bottom: 20px;
+  }
+
+  .vk-button {
+    padding: 7px 20px;
+    background-color: #4A76A8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .vk-button:hover {
+    background-color: #375E91;
   }
 </style>
