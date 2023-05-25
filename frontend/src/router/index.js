@@ -14,13 +14,13 @@ import ProductProfile from "@/components/elements/ProductProfile";
 import CartPage from "@/components/pages/CartPage";
 import CreateProduct from "@/components/admin/CreateProduct";
 import OrdersPage from "@/components/pages/OrdersPage";
-import DiscountsList from "@/components/pages/DiscountsList";
 import CreateDiscounts from "@/components/admin/CreateDiscounts";
 import PasswordResetConfirmation from "@/components/forms/PasswordResetConfirmation.vue";
 import RegistrationPage from "@/components/pages/RegistrationPage";
 import ResetPassword from "@/components/forms/ResetPassword";
 import UserProfilePage from "@/components/pages/UserProfilePage";
 import EditProfilePage from "@/components/pages/EditProfilePage";
+import DiscountsPage from "@/components/pages/DiscountsPage";
 
 const routes = [
   {
@@ -53,8 +53,8 @@ const routes = [
   },
   {
     path: '/discounts',
-    name: 'DiscountsList',
-    component: DiscountsList
+    name: 'DiscountsPage',
+    component: DiscountsPage
   },
   {
     path: '/discounts/add',
