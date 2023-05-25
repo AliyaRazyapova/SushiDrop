@@ -19,7 +19,7 @@
             <td>{{ item.product.name }}</td>
             <td>{{ item.product.price }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.totalPrice }}</td>
+            <td>{{ item.total_price }}</td>
           </tr>
         </tbody>
       </table>
@@ -108,12 +108,20 @@ export default {
       };
 
       const orderData = {
+        user: 1,
+        total_price: 0,
         delivery_time: this.orderData.delivery_time,
         delivery_method: this.orderData.delivery_method,
         delivery_address: this.orderData.delivery_address,
         payment_method: this.orderData.payment_method,
-        order_items: this.orderData.orderItems,
+        order_items: this.orderData.orderItems.map(item => ({
+          product: item.product.id,
+          quantity: item.quantity,
+          total_price: item.totalPrice
+        }))
       };
+
+      console.log(this.orderData.orderItems)
 
       axios
         .post('http://localhost:8000/api/orders/', orderData, { headers })
@@ -121,7 +129,7 @@ export default {
           console.log(response.data);
         })
         .catch((error) => {
-          console.error('Failed to create order', error);
+          console.error('Failed to create order', error.response.data);
         });
     },
   },
