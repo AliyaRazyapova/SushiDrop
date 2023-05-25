@@ -12,7 +12,6 @@ import NapitkiIDesertyPage from "@/components/pages/NapitkiIDesertyPage";
 import SpetsiiPage from "@/components/pages/SpetsiiPage";
 import ProductProfile from "@/components/elements/ProductProfile";
 import CartPage from "@/components/pages/CartPage";
-import EditProfile from "@/components/elements/EditProfile";
 import CreateProduct from "@/components/admin/CreateProduct";
 import OrdersPage from "@/components/pages/OrdersPage";
 import DiscountsList from "@/components/pages/DiscountsList";
@@ -21,6 +20,7 @@ import PasswordResetConfirmation from "@/components/forms/PasswordResetConfirmat
 import RegistrationPage from "@/components/pages/RegistrationPage";
 import ResetPassword from "@/components/forms/ResetPassword";
 import UserProfilePage from "@/components/pages/UserProfilePage";
+import EditProfilePage from "@/components/pages/EditProfilePage";
 
 const routes = [
   {
@@ -74,7 +74,7 @@ const routes = [
   },
   {
     path: '/profile',
-    name: 'UserProfile',
+    name: 'UserProfilePage',
     component: UserProfilePage,
     meta: {
       requiresAuth: true,
@@ -82,8 +82,8 @@ const routes = [
   },
   {
     path: '/profile/edit',
-    name: 'EditProfile',
-    component: EditProfile
+    name: 'EditProfilePage',
+    component: EditProfilePage
   },
   {
     path: '/nabory',
