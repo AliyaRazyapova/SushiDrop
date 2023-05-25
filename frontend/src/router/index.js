@@ -21,6 +21,7 @@ import UserProfilePage from "@/components/pages/UserProfilePage";
 import EditProfilePage from "@/components/pages/EditProfilePage";
 import DiscountsPage from "@/components/pages/DiscountsPage";
 import ResetPasswordPage from "@/components/pages/ResetPasswordPage";
+import VKForm from "@/components/forms/VKForm";
 
 const routes = [
   {
@@ -71,6 +72,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginPage
+  },
+  {
+    path: '/loginVk',
+    name: 'loginVk',
+    component: VKForm
   },
   {
     path: '/profile',
