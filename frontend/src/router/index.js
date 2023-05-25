@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import RegistrationForm from "@/components/forms/RegistrationForm";
 import LoginPage from "@/components/pages/LoginPage";
 import UserProfile from "@/components/elements/UserProfile";
 import MainPage from "@/components/pages/MainPage";
@@ -20,6 +19,7 @@ import OrdersPage from "@/components/pages/OrdersPage";
 import DiscountsList from "@/components/pages/DiscountsList";
 import CreateDiscounts from "@/components/admin/CreateDiscounts";
 import PasswordResetConfirmation from "@/components/forms/PasswordResetConfirmation.vue";
+import RegistrationPage from "@/components/pages/RegistrationPage";
 
 const routes = [
   {
@@ -64,7 +64,7 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: RegistrationForm
+    component: RegistrationPage
   },
   {
     path: '/login',
