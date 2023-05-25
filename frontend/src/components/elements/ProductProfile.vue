@@ -12,16 +12,18 @@
       <div :class="{'gramms_price': !isProfileUrl, 'gramms_price--profile': isProfileUrl}">
         <div :class="{'gramms': !isProfileUrl, 'gramms--profile': isProfileUrl}">{{ product.gramms }} гр.</div>
         <div :class="{'description': !isProfileUrl, 'description--profile': isProfileUrl}">{{product.description}}</div>
+      </div>
+      <div :class="{'counter_price': !isProfileUrl, 'counter_price--profile': isProfileUrl}">
+        <div :class="{'counter': !isProfileUrl, 'counter--profile': isProfileUrl}">
+          <button class="minus" @click="decrementQuantity">-</button>
+          <div class="quantity">{{ product.quantity }}</div>
+          <button class="plus" @click="incrementQuantity">+</button>
+        </div>
         <div v-if="product.discountedPrice" :class="{'price_1 price_1_2': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
           <div class="discounted-price" :class="{'price price_2': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.discountedPrice }} ₽</div>
         </div>
         <div v-else :class="{'price_1': !isProfileUrl, 'price_1--profile': isProfileUrl}" @click="addToCart">
           <div :class="{'price': !isProfileUrl, 'price--profile': isProfileUrl}">{{ product.price }} ₽</div>
-        </div>
-        <div :class="{'counter': !isProfileUrl, 'counter--profile': isProfileUrl}">
-          <button class="minus" @click="decrementQuantity">-</button>
-          <div class="quantity">{{ product.quantity }}</div>
-          <button class="plus" @click="incrementQuantity">+</button>
         </div>
       </div>
     </div>
@@ -213,7 +215,7 @@ export default {
     width: 400px;
     height: 340px;
 
-    margin: 15px;
+    margin: 40px 15px 0 15px;
   }
 
   .img--profile {
@@ -229,6 +231,8 @@ export default {
     line-height: 36px;
 
     color: #000000;
+
+    margin-bottom: 15px;
   }
 
   .gramms--profile {
@@ -239,6 +243,8 @@ export default {
     line-height: 21px;
 
     color: #7C909C;
+
+    margin-bottom: 15px;
   }
 
   .description--profile {
@@ -249,6 +255,8 @@ export default {
     line-height: 21px;
 
     color: #2F2F2F;
+
+    margin-bottom: 160px;
   }
 
   .price--profile {
@@ -271,6 +279,8 @@ export default {
 
     background: #E30538;
     border-radius: 9.38144px;
+
+    margin: 8px 0 0 70px;
   }
 
   .counter--profile {
@@ -293,5 +303,18 @@ export default {
   .minus, .plus {
     border: 3px solid #F52341;
     background: #FFFFFF;
+  }
+
+  .content--profile {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    margin: 0 0 0 40px;
+  }
+
+  .counter_price--profile {
+    display: flex;
+    flex-direction: row;
   }
 </style>
