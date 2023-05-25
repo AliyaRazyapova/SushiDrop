@@ -1,4 +1,6 @@
 <template>
+  <hea-der />
+  <category-list />
   <div class="create-order-container">
     <h1 class="create-order-heading">Оформление заказа</h1>
     <div class="order-details-container">
@@ -65,8 +67,11 @@
 
 <script>
 import axios from 'axios';
+import HeaDer from "@/components/elements/HeaDer";
+import CategoryList from "@/components/elements/CategoryList";
 
 export default {
+  components: {CategoryList, HeaDer},
   data() {
     return {
       orderData: {
@@ -133,6 +138,8 @@ export default {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+
+    margin-top: -50px;
   }
 
   .create-order-heading {
