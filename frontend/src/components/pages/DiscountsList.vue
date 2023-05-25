@@ -19,54 +19,6 @@
   </div>
 </template>
 
-<style>
-.discount-image {
-  height: 100px;
-  margin-bottom: 10px;
-}
-
-.discount-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.discounts-container {
-  background-color: #FFFFFF;
-  padding: 20px;
-}
-
-.discounts-title {
-  color: #000000;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.discounts-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.discount-item {
-  margin-bottom: 20px;
-  padding: 10px;
-}
-
-.discount-product {
-  color: #000000;
-  font-weight: bold;
-}
-
-.discount-percentage, .discount-price {
-  color: #F52341;
-}
-
-.discount-start,
-.discount-end, .price {
-  color: #000000;
-}
-</style>
-
 <script>
 import axios from 'axios';
 
@@ -102,3 +54,51 @@ export default {
   },
 };
 </script>
+
+<style>
+  .discount-image {
+    height: 100px;
+    margin-bottom: 10px;
+  }
+
+  .discount-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .discounts-container {
+    background-color: #FFFFFF;
+    padding: 20px;
+  }
+
+  .discounts-title {
+    color: #000000;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .discounts-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .discount-item {
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+
+  .discount-product {
+    color: #000000;
+    font-weight: bold;
+  }
+
+  .discount-percentage, .discount-price {
+    color: #F52341;
+  }
+
+  .discount-start,
+  .discount-end, .price {
+    color: #000000;
+  }
+</style>
