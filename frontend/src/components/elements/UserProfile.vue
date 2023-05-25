@@ -76,7 +76,8 @@ export default {
 
 h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   color: #000000;
 }
 
@@ -109,6 +110,7 @@ h2 {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  margin-top: 40px;
 }
 
 .edit-button:hover {
