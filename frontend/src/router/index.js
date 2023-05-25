@@ -20,6 +20,7 @@ import DiscountsList from "@/components/pages/DiscountsList";
 import CreateDiscounts from "@/components/admin/CreateDiscounts";
 import PasswordResetConfirmation from "@/components/forms/PasswordResetConfirmation.vue";
 import RegistrationPage from "@/components/pages/RegistrationPage";
+import ResetPassword from "@/components/forms/ResetPassword";
 
 const routes = [
   {
@@ -128,6 +129,11 @@ const routes = [
     path: '/spetsii',
     name: 'spetsii',
     component: SpetsiiPage
+  },
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: ResetPassword
   },
   {
     path: '/reset-password-confirm/:uid/:token',
