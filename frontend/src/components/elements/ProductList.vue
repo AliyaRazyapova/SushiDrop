@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="search-bar">
-      <input type="text" v-model="searchQuery" placeholder="Search..." @input="searchProducts" />
+      <input class="search-bar-input" type="text" v-model="searchQuery" placeholder="Введите название..." @input="searchProducts" />
     </div>
     <div class="product-list">
       <div v-for="product in filteredProducts" :key="product.id">
@@ -67,7 +67,15 @@ export default {
 
 <style scoped>
   .search-bar {
-    margin-bottom: 1rem;
+    margin: 17px 19px 17px 19px;
+    width: 1100px;
+    height: 26px;
+  }
+
+  .search-bar-input {
+    margin: 1px 19px 17px 19px;
+    width: 1100px;
+    height: 27px;
   }
 
   .product-list {
