@@ -23,7 +23,7 @@
               <img :src="item.product.image" alt="Product Image" class="product-image" />
             </td>
             <td>{{ item.product.name }}</td>
-            <td>{{ item.product.price }}</td>
+            <td>{{ item.product.price }}{{ item.product.discount ? ` (скидка ${item.product.discount}%)` : '' }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.totalPrice }}</td>
           </tr>
@@ -96,11 +96,33 @@ export default {
 
               const cartItemsWithProduct = Object.values(groupedItems);
 
-              cartItemsWithProduct.forEach((item) => {
-                item.totalPrice = item.product.price * item.quantity;
-              });
+              const discountPromises = cartItemsWithProduct.map((item) =>
+                axios.get(`http://localhost:8000/api/discounts/?product=${item.product.id}`, { headers })
+              );
 
-              this.cartItems = cartItemsWithProduct;
+              Promise.all(discountPromises)
+                .then((discountResponses) => {
+                  discountResponses.forEach((response, index) => {
+                    const discounts = response.data;
+                    if (discounts.length > 0) {
+                      const productId = Object.keys(groupedItems)[index];
+                      const item = groupedItems[productId];
+
+                      const discount = discounts[0];
+                      const discountedPrice = item.product.price * (1 - discount.discount_percentage / 100);
+                      item.product.price = discountedPrice.toFixed(2);
+                    }
+                  });
+
+                  cartItemsWithProduct.forEach((item) => {
+                    item.totalPrice = item.product.price * item.quantity;
+                  });
+
+                  this.cartItems = cartItemsWithProduct;
+                })
+                .catch((error) => {
+                  console.error('Failed to fetch discounts', error);
+                });
             })
             .catch((error) => {
               console.error('Failed to fetch product', error);
@@ -115,7 +137,7 @@ export default {
         orderItems: JSON.stringify(this.groupedCartItems),
         total_price: this.totalCost,
       };
-      console.log(orderData)
+      console.log(orderData);
       this.$router.push({ name: 'OrdersPage', query: orderData });
     },
   },
