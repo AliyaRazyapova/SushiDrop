@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>User Profile</h2>
-    <div v-if="loading">Loading...</div>
+    <h2>Личный кабинет</h2>
+    <div v-if="loading">Загрузка...</div>
     <div v-else>
       <p>Email: {{ user.email || 'null' }}</p>
       <p>Имя: {{ user.first_name || 'null' }}</p>
@@ -30,7 +30,6 @@ export default {
   methods: {
     fetchUserProfile() {
       const token = localStorage.getItem('access_token');
-      console.log(token);
       axios
         .get('http://localhost:8000/api/core/profile/', {
           headers: {
