@@ -2,6 +2,9 @@
   <hea-der />
   <category-list />
   <login-form class="login-form" />
+  <div class="reset-password">
+    <a href="/reset-password">Сбросить пароль</a>
+  </div>
   <div class="line"></div>
   <div class="text">
     Вы ещё не зарегистрированы?
@@ -43,5 +46,9 @@ export default {
     border: none;
     border-top: 1px solid #000000;
     margin: 0 400px;
+  }
+
+  .reset-password {
+    margin-bottom: 15px;
   }
 </style>
