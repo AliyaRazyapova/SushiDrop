@@ -177,7 +177,7 @@ export default {
     justify-content: center;
     text-align: right;
 
-    margin: 15px 15px 0 auto;
+    margin: -25px 15px 0 auto;
 
     width: 93.93px;
     height: 27.27px;
