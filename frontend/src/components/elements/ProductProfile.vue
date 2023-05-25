@@ -272,4 +272,26 @@ export default {
     background: #E30538;
     border-radius: 9.38144px;
   }
+
+  .counter--profile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .quantity {
+    padding: 20px 10px 0 10px;
+  }
+
+  .quantity, minus, plus {
+    height: 38px;
+
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .minus, .plus {
+    border: 3px solid #F52341;
+    background: #FFFFFF;
+  }
 </style>
