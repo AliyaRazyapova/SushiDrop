@@ -1,30 +1,30 @@
 <template>
-  <div>
-    <h2>Вход в систему</h2>
-    <form @submit.prevent="login">
-      <div>
+  <div class="login-container">
+    <div class="login-title">Вход</div>
+    <form @submit.prevent="login" class="login-form">
+      <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="email" required>
       </div>
-      <div>
+      <div class="form-group">
         <label for="password">Пароль:</label>
         <input type="password" id="password" v-model="password" required>
       </div>
-      <button type="submit">Войти</button>
+      <button type="submit" class="login-button">Войти</button>
     </form>
+    <p v-if="message" class="login-message">{{ message }}</p>
     <VKForm />
-    <ResetPassword />
-    <p v-if="message">{{ message }}</p>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import VKForm from "@/components/forms/VKForm";
-import ResetPassword from "@/components/forms/ResetPassword.vue";
 
 export default {
-  components: {ResetPassword, VKForm},
+  components: {
+    VKForm
+  },
   data() {
     return {
       email: "",
@@ -73,3 +73,59 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .login-container {
+    text-align: center;
+    max-width: 300px;
+    margin: 90px auto 0 auto;
+  }
+
+  .login-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+
+    color: black;
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+
+    color: black;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 4px 8px 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .login-button {
+    padding: 8px 20px;
+    background-color: #F52341;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin-bottom: 20px;
+  }
+
+  .login-message {
+    margin-bottom: 20px;
+  }
+</style>
