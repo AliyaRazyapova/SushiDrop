@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import RegistrationForm from "@/components/forms/RegistrationForm";
-import LoginForm from "@/components/forms/LoginForm";
+import LoginPage from "@/components/pages/LoginPage";
 import UserProfile from "@/components/elements/UserProfile";
 import MainPage from "@/components/pages/MainPage";
 import NaboryPage from "@/components/pages/NaboryPage";
@@ -69,7 +69,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: LoginForm
+    component: LoginPage
   },
   {
     path: '/profile',
