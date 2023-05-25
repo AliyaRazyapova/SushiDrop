@@ -32,13 +32,12 @@ class OrderView(APIView):
                 for item in order_items:
                     product_id = item.get('product')
                     quantity = item.get('quantity')
-                    product = Product.objects.get(id=product_id)
+                    total_price = item.get('total_price')
 
                     order_item = OrderItem(
                         order=order,
-                        product=product,
                         quantity=quantity,
-                        total_price=product.price * quantity
+                        total_price=total_price
                     )
                     order_items_data.append(order_item)
 
