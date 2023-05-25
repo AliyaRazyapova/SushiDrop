@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from "@/components/pages/LoginPage";
-import UserProfile from "@/components/elements/UserProfile";
 import MainPage from "@/components/pages/MainPage";
 import NaboryPage from "@/components/pages/NaboryPage";
 import PremiumPage from "@/components/pages/PremiumPage";
@@ -21,6 +20,7 @@ import CreateDiscounts from "@/components/admin/CreateDiscounts";
 import PasswordResetConfirmation from "@/components/forms/PasswordResetConfirmation.vue";
 import RegistrationPage from "@/components/pages/RegistrationPage";
 import ResetPassword from "@/components/forms/ResetPassword";
+import UserProfilePage from "@/components/pages/UserProfilePage";
 
 const routes = [
   {
@@ -75,7 +75,7 @@ const routes = [
   {
     path: '/profile',
     name: 'UserProfile',
-    component: UserProfile,
+    component: UserProfilePage,
     meta: {
       requiresAuth: true,
     }
