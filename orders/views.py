@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from core.auth import CustomJWTAuthentication
+from core.models import User
 from products.models import Product
 from .models import OrderItem
 from .serializers import OrderSerializer
@@ -27,10 +28,12 @@ class OrderView(APIView):
 
             with transaction.atomic():
                 order = serializer.save()
+                user_id =request.user.id
+                order.user = User.objects.get(id=user_id)
+                order.save()
 
                 order_items_data = []
                 for item in order_items:
-                    product_id = item.get('product')
                     quantity = item.get('quantity')
                     total_price = item.get('total_price')
 
