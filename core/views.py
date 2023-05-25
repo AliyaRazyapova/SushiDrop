@@ -74,34 +74,45 @@ class LoginView(APIView):
 
 def generate_jwt_token(user_data):
     payload = {
-        'user_id': user_data['id']
+        'email': user_data['email']
     }
-    token = jwt.encode(payload, 'your_secret_key', algorithm='HS256')
+    token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
     return token
 
 
 def vk_oauth2_callback(request):
     code = request.GET.get('code')
+    email = request.GET.get('state')
 
     response = requests.post('https://oauth.vk.com/access_token', params={
         'client_id': settings.SOCIAL_AUTH_VK_OAUTH2_KEY,
         'client_secret': settings.SOCIAL_AUTH_VK_OAUTH2_SECRET,
         'redirect_uri': settings.SOCIAL_AUTH_VK_OAUTH2_REDIRECT_URI,
-        'code': code
+        'code': code,
+        'scope': 'email'
     })
 
     access_token = response.json().get('access_token')
     user_response = requests.get('https://api.vk.com/method/users.get', params={
         'access_token': access_token,
-        'fields': 'email',
+        'fields': 'first_name,last_name',
         'v': '5.130',
     })
 
     user_data = user_response.json().get('response')[0]
+    user_data['email'] = email
+    print(user_data)
     request.session['user_data'] = user_data
 
-    jwt_token = generate_jwt_token(user_data)
+    first_name = user_data.get('first_name')
+    last_name = user_data.get('last_name')
+    phone_number = user_data.get('phone_number')
+    address = user_data.get('address')
 
+    User.objects.create_user(email=email, password=None, first_name=first_name, last_name=last_name,
+                             phone_number=phone_number, address=address)
+
+    jwt_token = generate_jwt_token(user_data)
     request.session['jwt_token'] = jwt_token
 
     redirect_url = f"http://localhost:8080/login?jwt_token={jwt_token}"
