@@ -2,7 +2,7 @@ import jwt
 import hashlib
 import requests
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponse
 
 from django.shortcuts import redirect, render
 from django.conf import settings
@@ -109,14 +109,26 @@ def vk_oauth2_callback(request):
     phone_number = user_data.get('phone_number')
     address = user_data.get('address')
 
-    User.objects.create_user(email=email, password=None, first_name=first_name, last_name=last_name,
-                             phone_number=phone_number, address=address)
+    try:
+        user = User.objects.get(email=email)
+        if user.first_name == first_name and user.last_name == last_name:
+            jwt_token = generate_jwt_token(user_data)
+            print(user_data)
+            request.session['jwt_token'] = jwt_token
 
-    jwt_token = generate_jwt_token(user_data)
-    request.session['jwt_token'] = jwt_token
+            redirect_url = f"http://localhost:8080/loginVK?jwt_token={jwt_token}"
+            return redirect(redirect_url)
+        else:
+            return HttpResponse('Email already exists with different user data')
+    except User.DoesNotExist:
+        User.objects.create_user(email=email, password=None, first_name=first_name, last_name=last_name,
+                                 phone_number=phone_number, address=address)
 
-    redirect_url = f"http://localhost:8080/login?jwt_token={jwt_token}"
-    return redirect(redirect_url)
+        jwt_token = generate_jwt_token(user_data)
+        request.session['jwt_token'] = jwt_token
+
+        redirect_url = f"http://localhost:8080/loginVK?jwt_token={jwt_token}"
+        return redirect(redirect_url)
 
 
 class UserProfileView(APIView):
