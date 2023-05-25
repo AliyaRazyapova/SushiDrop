@@ -1,5 +1,6 @@
 <template>
   <hea-der />
+  <category-list />
   <login-form class="login-form" />
   <div class="line"></div>
   <div class="text">
@@ -13,9 +14,11 @@
 <script>
 import LoginForm from "@/components/forms/LoginForm";
 import HeaDer from "@/components/elements/HeaDer";
+import CategoryList from "@/components/elements/CategoryList";
 export default {
   name: "LoginPage",
   components: {
+    CategoryList,
     HeaDer,
     LoginForm
   }
