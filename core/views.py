@@ -101,7 +101,6 @@ def vk_oauth2_callback(request):
 
     user_data = user_response.json().get('response')[0]
     user_data['email'] = email
-    print(user_data)
     request.session['user_data'] = user_data
 
     first_name = user_data.get('first_name')
