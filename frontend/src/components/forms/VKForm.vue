@@ -1,5 +1,5 @@
 <template>
-  <button @click="authorize">Авторизация через VK</button>
+  <button class="vk-button" @click="authorize">Авторизация через VK</button>
 </template>
 
 <script>
@@ -22,5 +22,26 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.vk-button {
+  padding: 7px 20px;
+  background-color: #4A76A8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.vk-button:hover {
+  background-color: #375E91;
+}
+
+.vk-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #4A76A8;
+}
+</style>
 
 
