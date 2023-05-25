@@ -37,76 +37,6 @@
   </div>
 </template>
 
-<style>
-.cart-container {
-  background-color: #ffffff;
-  color: #000000;
-  padding: 20px;
-}
-
-.cart-heading {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 40px;
-}
-
-.empty-cart-message {
-  text-align: center;
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
-.cart-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.cart-table th,
-.cart-table td {
-  padding: 8px;
-  text-align: center;
-  border-bottom: 1px solid #000000;
-}
-
-.cart-table th {
-  background-color: #f0f0f0;
-}
-
-.product-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-}
-
-.total-cost {
-  font-weight: bold;
-  margin-top: 20px;
-  text-align: right;
-}
-
-.order-button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.order-button {
-  font-weight: bold;
-  font-size: 16px;
-  padding: 12px 24px;
-  background-color: #F52341;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.order-button:hover {
-  background-color: #333333;
-}
-</style>
-
 <script>
 import axios from 'axios';
 import HeaDer from "@/components/elements/HeaDer";
@@ -217,3 +147,73 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .cart-container {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 20px;
+  }
+
+  .cart-heading {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .empty-cart-message {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+  }
+
+  .cart-table th {
+    background-color: #f0f0f0;
+  }
+
+  .product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  .total-cost {
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: right;
+  }
+
+  .order-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .order-button {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 24px;
+    background-color: #F52341;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .order-button:hover {
+    background-color: #333333;
+  }
+</style>
