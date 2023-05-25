@@ -19,11 +19,11 @@
             <td>{{ item.product.name }}</td>
             <td>{{ item.product.price }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.total_price }}</td>
+            <td>{{ item.totalPrice }}</td>
           </tr>
         </tbody>
       </table>
-      <p class="total-price">Общая стоимость: {{ orderData.total_price }}</p>
+      <p class="total-price">Общая стоимость: {{ orderData.total_price.toFixed(2) }}</p>
     </div>
     <form @submit.prevent="createOrder" class="order-form">
       <div class="form-group">
@@ -99,7 +99,10 @@ export default {
       const orderItemsString = this.$route.query.orderItems;
       const orderItems = JSON.parse(orderItemsString);
       this.orderData.orderItems = orderItems;
-      console.log(this.orderData);
+      console.log(orderItems)
+
+      const totalCost = orderItems.reduce((total, item) => total + item.totalPrice, 0);
+      this.orderData.total_price = totalCost;
     },
     createOrder() {
       const token = localStorage.getItem('access_token');
