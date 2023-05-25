@@ -1,7 +1,9 @@
 <template>
   <div class="register_form">
-    <div class="title inp_1">
-      Регистрация
+    <div class="title-wrapper">
+      <div class="title inp_1">
+        Регистрация
+      </div>
     </div>
     <form @submit.prevent="registerUser">
       <div class="name_inp">
@@ -47,6 +49,7 @@
 import axios from 'axios';
 
 export default {
+  name: 'RegistrationForm',
   data() {
     return {
       first_name: '',
@@ -85,6 +88,12 @@ export default {
   align-items: center;
 }
 
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 80px 0 40px 20px;
+}
+
 .title {
   font-family: 'Poppins', sans-serif;
   font-style: normal;
@@ -92,8 +101,6 @@ export default {
   font-size: 24px;
   line-height: 36px;
   color: #212121;
-
-  margin-bottom: 54px;
 }
 
 .name_inp {
@@ -153,7 +160,7 @@ export default {
   font-family: 'Poppins', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 17px;
 
   color: #FAFAFA;
@@ -161,9 +168,7 @@ export default {
   border-radius: 4px;
   border: 1px solid #FAFAFA;
 
-  width: 131px;
-  height: 27px;
-
-  margin-top: 8px;
+  margin: 8px 0 0 0;
+  padding: 6px 10px;
 }
 </style>
