@@ -27,6 +27,10 @@
         </div>
       </div>
     </div>
+    <div v-if="isAdmin" :class="{'admin-buttons': !isProfileUrl, 'admin-buttons--profile_1': isProfileUrl}">
+      <button class="admin-buttons--profile" @click="deleteProduct">Удалить</button>
+      <button class="admin-buttons--profile" @click="editProduct">Редактировать</button>
+    </div>
   </div>
 </template>
 
@@ -47,24 +51,36 @@ export default {
   data() {
     return {
       product: {},
-      isProfileUrl: false
+      isProfileUrl: false,
+      isAdmin: false
     }
   },
   mounted() {
     this.getProduct();
     this.checkUrl();
+    this.checkAdminStatus();
   },
   methods: {
     async getProduct() {
       try {
-        const response = await fetch(`http://localhost:8000/api/products/${this.productId}/`);
-        if (!response.ok) {
-          throw new Error(response.status + ' ' + response.statusText);
-        }
-        const data = await response.json();
+        const response = await axios.get(`http://localhost:8000/api/products/${this.productId}/`);
+        const data = response.data;
         this.product = data;
         this.product.quantity = 1;
         await this.getDiscount();
+
+        if (localStorage.getItem('access_token')) {
+          const token = localStorage.getItem('access_token');
+          const authResponse = await axios.get('http://localhost:8000/api/core/auth/', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+
+          if (authResponse.data.is_staff) {
+            this.isAdmin = true;
+          }
+        }
       } catch (error) {
         console.error(error);
       }
@@ -125,6 +141,50 @@ export default {
         console.error(error);
       }
     },
+    checkAdminStatus() {
+      const token = localStorage.getItem('access_token');
+      axios.get('http://localhost:8000/api/core/auth/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        const isStaff = response.data.role;
+        this.isAdmin = isStaff;
+      })
+      .catch(error => {
+        console.error('Failed to get admin status', error);
+      });
+    },
+
+    deleteProduct() {
+      if (confirm('Вы уверены, что хотите удалить товар?')) {
+        const token = localStorage.getItem('access_token');
+        const url = `http://localhost:8000/api/products/${this.product.id}/delete/`;
+
+        axios
+            .delete(url, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then(response => {
+              if (response.data.success) {
+                alert('Product deleted successfully!');
+                this.$router.push('/');
+              } else {
+                alert('Failed to delete product: ' + response.data.message);
+              }
+            })
+            .catch(error => {
+              console.error('Failed to delete product', error);
+            });
+      }
+    },
+
+    editProduct() {
+      this.$router.push(`${this.product.id}/edit/`)
+    }
   }
 }
 </script>
@@ -204,7 +264,7 @@ export default {
     color: #FAFAFA;
   }
 
-  .description, .header, .list, .counter {
+  .description, .header, .list, .counter, .admin-buttons {
     display: none;
   }
 
@@ -316,5 +376,20 @@ export default {
   .counter_price--profile {
     display: flex;
     flex-direction: row;
+  }
+
+  .admin-buttons--profile {
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    margin: 10px;
+  }
+
+  .admin-buttons--profile:hover {
+    background-color: #c82333;
   }
 </style>
