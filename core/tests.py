@@ -1,20 +1,23 @@
-import os
-import django
-from django.conf import settings
-from django.contrib.auth.hashers import check_password, make_password
+import json
+from django.test import TestCase
+from django.urls import reverse
 
-# Установите переменную окружения DJANGO_SETTINGS_MODULE
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sushidrop.settings')
-# Загрузите настройки Django
-django.setup()
+from rest_framework import status
 
-# Теперь вы можете использовать check_password
-password = '1'
-hashed_password = make_password(password)
-print(hashed_password)
+from core.models import User
 
-is_password_valid = check_password(password, hashed_password)
-if is_password_valid:
-    print('Пароль верный')
-else:
-    print('Пароль неверный')
+
+class RegisterViewTest(TestCase):
+    def test_register_user(self):
+        url = reverse('register')
+        data = {
+            'email': 'test@test.ru',
+            'first_name': 'test',
+            'password': 'test'
+        }
+
+        json_data = json.dumps(data)
+        response = self.client.post(url, json_data, content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(User.objects.count(), 1)
+        self.assertEqual(User.objects.get().email, 'test@test.ru')
