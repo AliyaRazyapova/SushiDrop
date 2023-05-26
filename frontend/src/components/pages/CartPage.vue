@@ -30,6 +30,9 @@
         </tbody>
       </table>
       <div class="total-cost">Общая стоимость: {{ totalCost }}</div>
+      <div class="button-container">
+        <button @click="clearCart" class="clear-button">Очистить корзину</button>
+      </div>
       <div class="order-button-container">
         <button @click="proceedToOrderPage" class="order-button">Оформить заказ</button>
       </div>
@@ -140,6 +143,22 @@ export default {
       console.log(orderData);
       this.$router.push({ name: 'OrdersPage', query: orderData });
     },
+    clearCart() {
+      const token = localStorage.getItem('access_token');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      axios
+        .delete('http://localhost:8000/api/cart/delete/', { headers })
+        .then(() => {
+          this.cartItems = [];
+          console.log('Cart cleared successfully.');
+        })
+        .catch((error) => {
+          console.error('Failed to clear cart', error.response.data);
+        });
+    },
   },
   computed: {
     groupedCartItems() {
@@ -237,5 +256,28 @@ export default {
 
   .order-button:hover {
     background-color: #333333;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+
+  .clear-button {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 24px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .clear-button:hover {
+    background-color: #000000;
+    color: #ffffff;
   }
 </style>
