@@ -1,5 +1,6 @@
 from django.urls import path
 from core import views
+from core.tasks import send_discount_emails
 
 urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register'),
@@ -9,3 +10,5 @@ urlpatterns = [
     path('reset-password/', views.ResetPasswordView.as_view(), name='reset_password'),
     path('reset-password/<str:token>/', views.NewPassword.as_view(), name='new_password'),
 ]
+
+send_discount_emails.delay()
