@@ -70,6 +70,7 @@ export default {
       })
         .then(response => {
           console.log(response.data);
+          this.$router.push('/')
         })
         .catch(error => {
           console.error('Failed to create discount', error);
