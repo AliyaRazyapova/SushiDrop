@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from datetime import timedelta
 from pathlib import Path
 
+from celery.schedules import crontab
+
+from django.conf import settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -232,8 +236,8 @@ CELERY_TIMEZONE = 'UTC'
 
 CELERY_BEAT_SCHEDULE = {
     'send_email_task': {
-        'task': 'core.tasks.send_password_reset_email',
-        'schedule': 60.0,
+        'task': 'core.tasks.send_discount_emails',
+        'schedule': 10*60*60,
     },
 }
 
@@ -244,3 +248,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '2458750@gmail.com'
 EMAIL_HOST_PASSWORD = 'xlwmmnpwaznegzbx'
 DEFAULT_FROM_EMAIL = '2458750@gmail.com'
+
+CELERY_IMPORTS = ('core.tasks', )
+CELERY_TASK_AUTO_DISCOVER = True
+
+SEND_DISCOUNT_EMAILS_ON_STARTUP = True
