@@ -133,6 +133,7 @@ export default {
         .post('http://localhost:8000/api/orders/', orderData, { headers })
         .then((response) => {
           console.log(response.data);
+          this.$router.push('/');
         })
         .catch((error) => {
           console.error('Failed to create order', error.response.data);
