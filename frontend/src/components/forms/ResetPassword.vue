@@ -27,6 +27,7 @@ export default {
         body: JSON.stringify({ email: this.email }),
       })
         .then(response => {
+          console.log(this.email)
           if (response.ok) {
             alert('Password reset email sent.');
             this.email = '';
