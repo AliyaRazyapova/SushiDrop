@@ -1,27 +1,32 @@
 <template>
-  <div>
-    <h1>Create Discount</h1>
-    <form @submit.prevent="createDiscount">
-      <label for="product">Product:</label>
-      <select v-model="selectedProduct" id="product">
+  <hea-der />
+  <category-list />
+  <div class="create-discount">
+    <h1>Создание cкидки</h1>
+    <form @submit.prevent="createDiscount" class="discount-form">
+      <label for="product">Продукт</label>
+      <select v-model="selectedProduct" id="product" class="form-select">
         <option v-for="product in products" :value="product.id" :key="product.id">{{ product.name }}</option>
       </select>
-      <label for="discountPercentage">Discount Percentage:</label>
-      <input type="number" v-model="discountPercentage" id="discountPercentage">
-      <label for="startDate">Start Date:</label>
-      <input type="date" v-model="startDate" id="startDate">
-      <label for="endDate">End Date:</label>
-      <input type="date" v-model="endDate" id="endDate">
-      <button type="submit">Create</button>
+      <label for="discountPercentage">Процент скидки</label>
+      <input type="number" v-model="discountPercentage" id="discountPercentage" class="form-input">
+      <label for="startDate">Начало</label>
+      <input type="date" v-model="startDate" id="startDate" class="form-input">
+      <label for="endDate">Конец</label>
+      <input type="date" v-model="endDate" id="endDate" class="form-input">
+      <button type="submit" class="form-button">Создать</button>
     </form>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import HeaDer from "@/components/elements/HeaDer";
+import CategoryList from "@/components/elements/CategoryList";
 
 export default {
   name: 'CreateDiscount',
+  components: {CategoryList, HeaDer},
   data() {
     return {
       selectedProduct: null,
@@ -73,3 +78,36 @@ export default {
   },
 };
 </script>
+
+<style>
+  .create-discount {
+    max-width: 400px;
+    margin: 80px auto;
+  }
+
+  .discount-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  .form-select,
+  .form-input {
+    padding: 8px;
+    margin-top: 5px;
+  }
+
+  .form-button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #F52341;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+</style>
