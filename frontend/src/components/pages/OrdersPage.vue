@@ -134,11 +134,28 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.$router.push('/');
+          this.clearCart();
         })
         .catch((error) => {
           console.error('Failed to create order', error.response.data);
         });
     },
+    clearCart() {
+      const token = localStorage.getItem('access_token');
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      axios
+      .delete('http://localhost:8000/api/cart/delete/', { headers })
+      .then(() => {
+        this.cartItems = [];
+        console.log('Cart cleared successfully.');
+      })
+      .catch((error) => {
+        console.error('Failed to clear cart', error.response.data);
+      });
+    }
   },
 };
 </script>
