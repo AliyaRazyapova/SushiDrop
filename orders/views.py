@@ -7,14 +7,18 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from core.auth import CustomJWTAuthentication
 from core.models import User
-from products.models import Product
-from .models import OrderItem
+from .models import OrderItem, Order
 from .serializers import OrderSerializer
 
 
 class OrderView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [CustomJWTAuthentication]
+
+    def get(self, request):
+        orders = Order.objects.all()
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)
 
     @swagger_auto_schema(
         operation_description="Create an order",
