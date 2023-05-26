@@ -44,6 +44,45 @@ class DiscountCreateView(APIView):
         serializer = DiscountSerializerCreate(data=request.data)
         print(serializer)
         if serializer.is_valid():
-            serializer.save(product=product)  # Pass the product object
+            serializer.save(product=product)
             return Response({'success': True, 'message': 'Discount created successfully'})
         return Response({'success': False, 'message': serializer.errors})
+
+
+class DiscountUpdateView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [CustomJWTAuthentication]
+
+    def get(self, request, discount_id):
+        try:
+            discount = Discount.objects.get(id=discount_id)
+            serializer = DiscountSerializer(discount)
+            return Response(serializer.data)
+        except Discount.DoesNotExist:
+            return Response({'message': 'Discount does not exist'}, status=404)
+        except Exception as error:
+            return Response({'message': str(error)}, status=500)
+
+    def put(self, request, discount_id):
+        try:
+            discount = Discount.objects.get(id=discount_id)
+            serializer = DiscountSerializer(discount, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=400)
+        except Discount.DoesNotExist:
+            return Response({'message': 'Discount does not exist'}, status=404)
+        except Exception as error:
+            return Response({'message': str(error)}, status=500)
+
+    def delete(self, request, discount_id):
+        try:
+            discount = Discount.objects.get(id=discount_id)
+            discount.delete()
+            return Response({'success': True, 'message': 'Discount deleted successfully'})
+        except Discount.DoesNotExist:
+            return Response({'success': False, 'message': 'Discount does not exist'})
+        except Exception as e:
+            return Response({'success': False, 'message': str(e)})
