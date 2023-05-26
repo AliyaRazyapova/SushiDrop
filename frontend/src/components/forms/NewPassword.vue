@@ -48,7 +48,7 @@ export default {
             alert('Смена пароля прошла успешно.');
             this.password = '';
             this.confirmPassword = '';
-            // this.$router.push('/');
+            this.$router.push('/');
           } else {
             throw new Error('Не удалось сменить пароль.');
           }
