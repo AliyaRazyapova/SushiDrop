@@ -1,6 +1,7 @@
 import jwt
 import hashlib
 import requests
+from django.contrib.auth import authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponseBadRequest, HttpResponse
 
@@ -22,7 +23,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 from sushidrop import settings
 from core.models import User
@@ -177,9 +178,19 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
+class UserRoleView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [CustomJWTAuthentication]
+
+    def get(self, request):
+        user = request.user
+        role = user.is_staff
+        return Response({'role': role})
+
+
 import hashlib
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
 def reset_password(request):
     email = request.data.get('email')
