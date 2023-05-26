@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <form @submit.prevent="createProduct">
+  <hea-der />
+  <category-list />
+  <div class="create-product">
+    <h1>Создание продукта</h1>
+    <form @submit.prevent="createProduct" class="product-form">
       <label>
         Категория:
-        <select v-model="category">
+        <select v-model="category" class="form-select">
           <option value="">Выберите категорию</option>
           <option v-for="category in categories" :value="category.id" :key="category.id">{{ category.name }}</option>
         </select>
@@ -11,37 +14,41 @@
       <br>
       <label>
         Название:
-        <input v-model="name" type="text">
+        <input v-model="name" type="text" class="form-input">
       </label>
       <br>
       <label>
         Описание:
-        <textarea v-model="description"></textarea>
+        <textarea v-model="description" class="form-textarea"></textarea>
       </label>
       <br>
       <label>
         Цена:
-        <input v-model="price" type="number" step="0.01">
+        <input v-model="price" type="number" step="0.01" class="form-input">
       </label>
       <br>
       <label>
         Изображение:
-        <input @change="onImageChange" type="file">
+        <input @change="onImageChange" type="file" class="form-file">
       </label>
       <br>
       <label>
         Граммы:
-        <input v-model="gramms" type="number">
+        <input v-model="gramms" type="number" class="form-input">
       </label>
       <br>
-      <button type="submit">Создать продукт</button>
+      <button type="submit" class="form-button">Создать продукт</button>
     </form>
   </div>
 </template>
 
 <script>
+import HeaDer from "@/components/elements/HeaDer";
+import CategoryList from "@/components/elements/CategoryList";
+
 export default {
   name: 'CreateProduct',
+  components: {CategoryList, HeaDer},
   data() {
     return {
       category: '',
@@ -98,3 +105,38 @@ export default {
   },
 }
 </script>
+
+<style>
+  .create-product {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .product-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  .form-select,
+  .form-input,
+  .form-textarea,
+  .form-file {
+    padding: 8px;
+    margin-top: 5px;
+  }
+
+  .form-button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #F52341;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+</style>
