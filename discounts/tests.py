@@ -12,7 +12,7 @@ from .models import Discount
 class DiscountTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = User.objects.create_user(email='test@mail.ru', password='testpassword')
+        self.user = User.objects.create_user(email='test@mail.ru', password='test123')
         self.client.force_authenticate(user=self.user)
 
         self.category = CategoryProduct.objects.create(name='Category')
@@ -21,12 +21,12 @@ class DiscountTestCase(TestCase):
             name='Product Name',
             description='Product Description',
             gramms=100,
-            price=10.0,
+            price=100.0,
             image='img/product.jpg'
         )
         self.discount = Discount.objects.create(
             product=self.product,
-            discount_percentage=10.0,
+            discount_percentage=3.0,
             start_date=timezone.now().date(),
             end_date=timezone.now().date() + timezone.timedelta(days=7)
         )
@@ -50,7 +50,7 @@ class DiscountTestCase(TestCase):
         url = reverse('create_discounts')
         data = {
             'product': self.product.id,
-            'discount_percentage': 20.0,
+            'discount_percentage': 5.0,
             'start_date': str(date.today()),
             'end_date': str(date.today() + timezone.timedelta(days=30))
         }
