@@ -18,4 +18,6 @@ urlpatterns = [
     path('sousy/', views.product_list, {'category_id': 7}, name='sousy_list'),
     path('napitki-i-deserty/', views.product_list, {'category_id': 8}, name='napitki-i-deserty_list'),
     path('spetsii/', views.product_list, {'category_id': 9}, name='spetsii_list'),
+    path('<int:product_id>/delete/', views.delete_product, name='delete_product'),
+    path('<int:product_id>/edit/', views.edit_product, name='edit_product'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
