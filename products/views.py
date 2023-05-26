@@ -1,7 +1,11 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 
+from cart.models import Cart
+from discounts.models import Discount
+from orders.models import OrderItem
 from products.models import CategoryProduct, Product
 
 
@@ -58,3 +62,50 @@ def product_detail(request, product_id):
         return JsonResponse(data, safe=False, json_dumps_params={'ensure_ascii': False})
     except Product.DoesNotExist:
         return JsonResponse({'error': 'Product not found'}, status=404)
+
+
+@csrf_exempt
+@transaction.atomic
+def delete_product(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+
+        Discount.objects.filter(product=product).delete()
+        Cart.objects.filter(product=product).delete()
+        OrderItem.objects.filter(product=product).delete()
+
+        product.delete()
+
+        return JsonResponse({'success': True, 'message': 'Product deleted successfully'})
+    except Product.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Product does not exist'})
+    except Exception as error:
+        return JsonResponse({'success': False, 'message': str(error)})
+
+
+@csrf_exempt
+def edit_product(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        gramms = request.POST.get('gramms')
+        price = request.POST.get('price')
+        image = request.FILES.get('image')
+
+        product.name = name
+        product.description = description
+        product.gramms = gramms
+        product.price = price
+
+        if image:
+            product.image = image
+
+        product.save()
+
+        return JsonResponse({'success': True, 'message': 'Product updated successfully'})
+    except Product.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Product does not exist'})
+    except Exception as error:
+        return JsonResponse({'success': False, 'message': str(error)})
