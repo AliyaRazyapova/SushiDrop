@@ -47,6 +47,10 @@ class ClearCartView(APIView):
     authentication_classes = [CustomJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Clear cart",
+        responses={204: openapi.Response("No Content")}
+    )
     def delete(self, request):
         user = request.user
         cart_items = Cart.objects.filter(user=user)

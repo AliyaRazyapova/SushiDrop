@@ -15,6 +15,10 @@ class OrderView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [CustomJWTAuthentication]
 
+    @swagger_auto_schema(
+        operation_description="Get all orders",
+        responses={200: openapi.Response("OK", OrderSerializer(many=True))}
+    )
     def get(self, request):
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)

@@ -185,6 +185,16 @@ class ResetPasswordView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        operation_description="Reset password",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING)
+            }
+        ),
+        responses={200: openapi.Response("OK"), 400: openapi.Response("Bad Request")}
+    )
     def post(self, request):
         email = request.data.get('email')
         if email:
@@ -209,6 +219,24 @@ class NewPassword(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        operation_description="Set new password",
+        manual_parameters=[
+            openapi.Parameter(
+                name="token",
+                in_=openapi.IN_PATH,
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'password': openapi.Schema(type=openapi.TYPE_STRING)
+            }
+        ),
+        responses={200: openapi.Response("OK"), 400: openapi.Response("Bad Request")}
+    )
     def post(self, request, token):
         user_id = cache.get(token)
 

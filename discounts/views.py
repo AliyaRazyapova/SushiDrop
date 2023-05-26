@@ -1,3 +1,6 @@
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -13,6 +16,19 @@ class DiscountView(APIView):
     authentication_classes = []
     permission_classes = []
 
+    @swagger_auto_schema(
+        operation_description="Get discounts for a specific product",
+        manual_parameters=[
+            openapi.Parameter(
+                name="product",
+                in_=openapi.IN_QUERY,
+                type=openapi.TYPE_INTEGER,
+                required=True,
+                description="Product ID"
+            )
+        ],
+        responses={200: openapi.Response("OK", DiscountSerializer(many=True))}
+    )
     def get(self, request):
         current_date = timezone.now().date()
         product_id = request.query_params.get('product')
@@ -25,6 +41,10 @@ class DiscountListView(APIView):
     authentication_classes = []
     permission_classes = []
 
+    @swagger_auto_schema(
+        operation_description="Get active discounts",
+        responses={200: openapi.Response("OK", DiscountSerializer(many=True))}
+    )
     def get(self, request):
         current_date = timezone.now().date()
         discounts = Discount.objects.filter(end_date__gte=current_date)
@@ -36,6 +56,11 @@ class DiscountCreateView(APIView):
     authentication_classes = [CustomJWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(
+        operation_description="Create a discount",
+        request_body=DiscountSerializerCreate,
+        responses={200: openapi.Response("OK"), 400: openapi.Response("Bad Request")}
+    )
     def post(self, request):
         product_id = request.data['product']
         print(product_id)
@@ -53,6 +78,10 @@ class DiscountUpdateView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [CustomJWTAuthentication]
 
+    @swagger_auto_schema(
+        operation_description="Get a discount by ID",
+        responses={200: openapi.Response("OK", DiscountSerializer())}
+    )
     def get(self, request, discount_id):
         try:
             discount = Discount.objects.get(id=discount_id)
@@ -63,6 +92,11 @@ class DiscountUpdateView(APIView):
         except Exception as error:
             return Response({'message': str(error)}, status=500)
 
+    @swagger_auto_schema(
+        operation_description="Update a discount",
+        request_body=DiscountSerializer,
+        responses={200: openapi.Response("OK"), 400: openapi.Response("Bad Request")}
+    )
     def put(self, request, discount_id):
         try:
             discount = Discount.objects.get(id=discount_id)
@@ -77,6 +111,11 @@ class DiscountUpdateView(APIView):
         except Exception as error:
             return Response({'message': str(error)}, status=500)
 
+    @swagger_auto_schema(
+        operation_description="Delete a discount",
+        responses={200: openapi.Response("OK"), 404: openapi.Response("Not Found"),
+                   500: openapi.Response("Internal Server Error")}
+    )
     def delete(self, request, discount_id):
         try:
             discount = Discount.objects.get(id=discount_id)
