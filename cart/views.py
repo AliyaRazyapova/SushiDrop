@@ -42,3 +42,13 @@ class CartAddView(APIView):
             return Response({'success': True, 'message': 'Product added to cart successfully'})
         return Response({'success': False, 'message': serializer.errors})
 
+
+class ClearCartView(APIView):
+    authentication_classes = [CustomJWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        user = request.user
+        cart_items = Cart.objects.filter(user=user)
+        cart_items.delete()
+        return Response(status=204)
