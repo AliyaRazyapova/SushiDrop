@@ -26,7 +26,7 @@ import EditProduct from "@/components/admin/EditProduct";
 import DiscountsForm from "@/components/admin/DiscountsForm";
 import EditDiscounts from "@/components/admin/EditDiscounts";
 import AdminPanel from "@/components/admin/AdminPanel";
-import NewPassword from "@/components/forms/NewPassword.vue";
+import NewPasswordPage from "@/components/pages/NewPasswordPage";
 
 const routes = [
   {
@@ -175,8 +175,8 @@ const routes = [
   },
   {
     path: '/reset-password/:token',
-    name: 'NewPassword',
-    component: NewPassword,
+    name: 'NewPasswordPage',
+    component: NewPasswordPage,
     props: true
   }
 ]
@@ -185,29 +185,5 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
-//
-// function isLoggedIn() {
-//   const token = localStorage.getItem('access_token');
-//   if (token) {
-//     try {
-//       // Проверяем и декодируем JWT-токен
-//       jwt.verify(token, 'django-insecure-tzndyj^x7-h!hkz*c+%i7*cez3y(0wrlx(dd7e^%=102%h0af0');
-//       return true;
-//     } catch (error) {
-//       console.log('FUCK')
-//       return false;
-//     }
-//   }
-//   return false;
-// }
-//
-//
-// router.beforeEach((to, from, next) => {
-//   if (to.meta.requiresAuth && !isLoggedIn()) {
-//     next('/login');
-//   } else {
-//     next();
-//   }
-// });
 
 export default router
