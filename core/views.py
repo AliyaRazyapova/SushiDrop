@@ -1,19 +1,12 @@
 import jwt
 import hashlib
 import requests
-from django.contrib.auth import authenticate
-from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponseBadRequest, HttpResponse
 
-from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.urls import reverse
-from django.utils.encoding import force_str, force_bytes
-from django.utils.html import strip_tags
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.core.cache import cache
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -23,12 +16,12 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 from sushidrop import settings
 from core.models import User
 from .serializers import UserSerializer, CustomTokenObtainPairSerializer
 from core.auth import CustomJWTAuthentication
+from .tasks import send_password_reset_email
 
 
 class RegisterView(APIView):
@@ -188,62 +181,54 @@ class UserRoleView(APIView):
         return Response({'role': role})
 
 
-import hashlib
+class ResetPasswordView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
 
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def reset_password(request):
-    email = request.data.get('email')
-    try:
-        user = User.objects.get(email=email)
-    except User.DoesNotExist:
-        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+    def post(self, request):
+        email = request.data.get('email')
+        if email:
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                return Response({'error': 'User not found'}, status=400)
 
-    token = default_token_generator.make_token(user)
-    uid = urlsafe_base64_encode(force_bytes(user.pk))
-    reset_link = f"http://localhost:8080/reset-password-confirm/{uid}/{token}/"
+            token = default_token_generator.make_token(user)
 
-    subject = 'Password Reset'
-    context = {
-        'user': user,
-        'reset_link': reset_link,
-    }
-    html_message = render_to_string('password_reset_email.html',context)
-    plain_message = strip_tags(html_message)
-    from_email = settings.EMAIL_HOST_USER
-    to_email = [email]
-    send_mail(subject, plain_message, from_email, to_email, html_message=html_message)
+            cache.set(token, user.id, timeout=60)
 
-    return Response({'success': 'Email sent'}, status=status.HTTP_200_OK)
+            reset_password_link = f'http://localhost:8080/reset-password/{token}/'
+            send_password_reset_email(user, reset_password_link)
+
+            return Response(status=200)
+        else:
+            return Response({'error': 'Email is required'}, status=400)
 
 
-def reset_password_confirm(request, uidb64, token):
-    if request.method == 'GET':
-        context = {
-            'uidb64': uidb64,
-            'token': token,
-        }
-        return render(request, 'index.html', context)
+class NewPassword(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
 
-    if request.method == 'POST':
-        uid = force_str(urlsafe_base64_decode(uidb64))
+    def post(self, request, token):
+        user_id = cache.get(token)
+
+        if not user_id:
+            return Response({'error': 'Invalid or expired token'}, status=400)
+
         try:
-            user = User.objects.get(pk=uid)
+            user = User.objects.get(id=user_id)
         except User.DoesNotExist:
-            return redirect('password_reset_invalid')
+            return Response({'error': 'Invalid or expired token'}, status=400)
 
-        if default_token_generator.check_token(user, token):
-            new_password = request.POST.get('new_password')
-            confirm_new_password = request.POST.get('confirm_new_password')
-
-            if new_password != confirm_new_password:
-                return redirect('password_reset_invalid')
-
-            hashed_password = hashlib.sha256(new_password.encode()).hexdigest()
+        password = request.data.get('password')
+        if password:
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
             user.password = hashed_password
             user.save()
 
-            return redirect('password_reset_complete')
+            cache.delete(token)
 
-        return redirect('password_reset_invalid')
+            return Response(status=200)
+        else:
+            return Response({'error': 'Password is required'}, status=400)
