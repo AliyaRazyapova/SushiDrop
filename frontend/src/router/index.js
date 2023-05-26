@@ -22,6 +22,10 @@ import EditProfilePage from "@/components/pages/EditProfilePage";
 import DiscountsPage from "@/components/pages/DiscountsPage";
 import ResetPasswordPage from "@/components/pages/ResetPasswordPage";
 import VKPage from "@/components/pages/VKPage";
+import EditProduct from "@/components/admin/EditProduct";
+import DiscountsForm from "@/components/admin/DiscountsForm";
+import EditDiscounts from "@/components/admin/EditDiscounts";
+import AdminPanel from "@/components/admin/AdminPanel";
 
 const routes = [
   {
@@ -33,6 +37,12 @@ const routes = [
     path: '/products/:productId',
     name: 'ProductProfile',
     component: ProductProfile,
+    props: true
+  },
+  {
+    path: '/products/:productId/edit',
+    name: 'EditProfile',
+    component: EditProduct,
     props: true
   },
   {
@@ -145,6 +155,22 @@ const routes = [
     path: '/reset-password-confirm/:uid/:token',
     name: 'reset-password-confirm',
     component: PasswordResetConfirmation
+  },
+  {
+    path: '/admin/discounts',
+    name: 'discounts-form',
+    component: DiscountsForm
+  },
+  {
+    path: '/discounts/:discountId/edit',
+    name: 'DiscountsEdit',
+    component: EditDiscounts,
+    props: true
+  },
+  {
+    path: '/admin',
+    name: 'AdminPanel',
+    component: AdminPanel
   }
 ]
 
