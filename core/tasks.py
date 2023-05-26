@@ -1,23 +1,14 @@
-from celery import shared_task
-
+from celery import Celery
 from django.core.mail import send_mail
-from django.contrib.auth.tokens import default_token_generator
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.template.loader import render_to_string
+
+app = Celery('sushidrop', broker='redis://localhost:6379/0')
 
 
-@shared_task
-def send_password_reset_email(user_id):
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-    try:
-        user = User.objects.get(pk=user_id)
-        token = default_token_generator.make_token(user)
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        reset_link = f'http://localhost:8080/reset-password/{uid}/{token}/'
-        subject = 'Сброс пароля'
-        message = render_to_string('email/reset_password.html', {'reset_link': reset_link})
-        send_mail(subject, message, '2458750@gmail.com', [user.email])
-    except User.DoesNotExist:
-        pass
+@app.task
+def send_password_reset_email(email, reset_token):
+    subject = 'Сброс пароля'
+    message = f'Для сброса пароля перейдите по ссылке: {reset_token}'
+    sender_email = '2458750@gmail.com'
+    recipient_email = email
+
+    send_mail(subject, message, sender_email, [recipient_email])
