@@ -26,6 +26,7 @@ import EditProduct from "@/components/admin/EditProduct";
 import DiscountsForm from "@/components/admin/DiscountsForm";
 import EditDiscounts from "@/components/admin/EditDiscounts";
 import AdminPanel from "@/components/admin/AdminPanel";
+import NewPassword from "@/components/forms/NewPassword.vue";
 
 const routes = [
   {
@@ -171,6 +172,12 @@ const routes = [
     path: '/admin',
     name: 'AdminPanel',
     component: AdminPanel
+  },
+  {
+    path: '/reset-password/:token',
+    name: 'NewPassword',
+    component: NewPassword,
+    props: true
   }
 ]
 
